@@ -1,6 +1,6 @@
 {
-    "name": "itsoltest",
-    "short_name": "itsoltest",
+    "name": "quickcareweb",
+    "short_name": "quickcareweb",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
