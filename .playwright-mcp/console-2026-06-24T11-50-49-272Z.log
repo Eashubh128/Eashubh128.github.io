@@ -1,0 +1,19 @@
+[     161ms] [ERROR] Failed to load resource: the server responded with a status of 400 (Bad Request) @ https://developer-portfolio-rt9n4y.drytis.dev/_next/static/chunks/app/page-b6b895164b3ef7aa.js:0
+[     264ms] [ERROR] ChunkLoadError: Loading chunk 931 failed.
+(error: https://developer-portfolio-rt9n4y.drytis.dev/_next/static/chunks/app/page-b6b895164b3ef7aa.js)
+    at s.f.j (https://developer-portfolio-rt9n4y.drytis.dev/_next/static/chunks/webpack-29bdb648e2be5576.js:1:2964)
+    at https://developer-portfolio-rt9n4y.drytis.dev/_next/static/chunks/webpack-29bdb648e2be5576.js:1:1274
+    at Array.reduce (<anonymous>)
+    at s.e (https://developer-portfolio-rt9n4y.drytis.dev/_next/static/chunks/webpack-29bdb648e2be5576.js:1:1240)
+    at https://developer-portfolio-rt9n4y.drytis.dev/_next/static/chunks/117-4f5b424f20efdcae.js:2:18889
+    at https://developer-portfolio-rt9n4y.drytis.dev/_next/static/chunks/117-4f5b424f20efdcae.js:2:19091
+    at t (https://developer-portfolio-rt9n4y.drytis.dev/_next/static/chunks/117-4f5b424f20efdcae.js:2:19294) @ https://developer-portfolio-rt9n4y.drytis.dev/_next/static/chunks/117-4f5b424f20efdcae.js:0
+[     267ms] Error: Minified React error #423; visit https://react.dev/errors/423 for the full message or use the non-minified dev environment for full errors and additional helpful warnings.
+    at iZ (https://developer-portfolio-rt9n4y.drytis.dev/_next/static/chunks/fd9d1056-b11b2651f33aae7f.js:1:118349)
+    at ia (https://developer-portfolio-rt9n4y.drytis.dev/_next/static/chunks/fd9d1056-b11b2651f33aae7f.js:1:95162)
+    at https://developer-portfolio-rt9n4y.drytis.dev/_next/static/chunks/fd9d1056-b11b2651f33aae7f.js:1:94984
+    at il (https://developer-portfolio-rt9n4y.drytis.dev/_next/static/chunks/fd9d1056-b11b2651f33aae7f.js:1:94991)
+    at oJ (https://developer-portfolio-rt9n4y.drytis.dev/_next/static/chunks/fd9d1056-b11b2651f33aae7f.js:1:92347)
+    at oZ (https://developer-portfolio-rt9n4y.drytis.dev/_next/static/chunks/fd9d1056-b11b2651f33aae7f.js:1:91766)
+    at MessagePort.M (https://developer-portfolio-rt9n4y.drytis.dev/_next/static/chunks/117-4f5b424f20efdcae.js:1:84770)
+[     309ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ https://developer-portfolio-rt9n4y.drytis.dev/favicon.ico:0

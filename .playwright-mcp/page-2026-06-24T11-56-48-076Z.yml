@@ -1,0 +1,378 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e4]:
+      - link "<Your />" [ref=e5] [cursor=pointer]:
+        - /url: "#home"
+      - button "Toggle menu" [ref=e477] [cursor=pointer]:
+        - img [ref=e502]
+  - main [ref=e13]:
+    - generic [ref=e15]:
+      - paragraph [ref=e16]: console.log('Hello World!')
+      - heading "Hi, I'm Your Name" [level=1] [ref=e17]
+      - generic [ref=e19]: React Deve
+      - paragraph [ref=e21]: I craft beautiful, performant, and accessible web experiences with modern technologies.
+      - generic [ref=e22]:
+        - link "Download CV" [ref=e23] [cursor=pointer]:
+          - /url: "#"
+          - img [ref=e24]
+          - text: Download CV
+        - link "Let's Talk" [ref=e26] [cursor=pointer]:
+          - /url: "#contact"
+          - text: Let's Talk
+          - img [ref=e27]
+    - generic [ref=e33]:
+      - heading "About Me" [level=2] [ref=e35]
+      - generic [ref=e37]:
+        - generic [ref=e38]:
+          - generic [ref=e42]:
+            - generic [ref=e43]: YN
+            - generic [ref=e44]: your photo here
+          - generic [ref=e46]:
+            - generic [ref=e47]:
+              - img [ref=e48]
+              - text: San Francisco, CA
+            - generic [ref=e50]:
+              - img [ref=e51]
+              - text: your.email@example.com
+        - generic [ref=e53]:
+          - paragraph [ref=e54]: I'm a passionate frontend developer with a love for creating intuitive and dynamic user experiences. With a strong foundation in modern JavaScript frameworks and a keen eye for design, I bring ideas to life in the browser.
+          - paragraph [ref=e55]: My journey in web development started with simple HTML and CSS pages, and has evolved into building complex, scalable applications with React and Next.js. I'm always eager to learn new technologies and take on new challenges.
+          - paragraph [ref=e56]: When I'm not coding, you can find me exploring new design trends, contributing to open-source projects, or enjoying a good cup of coffee while sketching out my next project idea.
+          - generic [ref=e57]:
+            - generic [ref=e58]:
+              - generic [ref=e59]: 0+
+              - generic [ref=e60]: Years of Experience
+            - generic [ref=e61]:
+              - generic [ref=e62]: 0+
+              - generic [ref=e63]: Projects Completed
+            - generic [ref=e64]:
+              - generic [ref=e65]: 0+
+              - generic [ref=e66]: Happy Clients
+            - generic [ref=e67]:
+              - generic [ref=e68]: 0+
+              - generic [ref=e69]: GitHub Stars
+    - generic [ref=e71]:
+      - generic [ref=e72]:
+        - heading "Tech Stack & Skills" [level=2] [ref=e73]
+        - paragraph [ref=e74]: Technologies and tools I work with every day
+      - generic [ref=e76]:
+        - generic [ref=e77]:
+          - generic [ref=e78]:
+            - img [ref=e80]
+            - heading "Frontend" [level=3] [ref=e82]
+          - generic [ref=e83]:
+            - generic [ref=e85]:
+              - generic [ref=e86]: React
+              - generic [ref=e87]: 95%
+            - generic [ref=e90]:
+              - generic [ref=e91]: Next.js
+              - generic [ref=e92]: 90%
+            - generic [ref=e95]:
+              - generic [ref=e96]: TypeScript
+              - generic [ref=e97]: 85%
+            - generic [ref=e100]:
+              - generic [ref=e101]: JavaScript (ES6+)
+              - generic [ref=e102]: 95%
+            - generic [ref=e105]:
+              - generic [ref=e106]: HTML5
+              - generic [ref=e107]: 98%
+            - generic [ref=e110]:
+              - generic [ref=e111]: CSS3
+              - generic [ref=e112]: 95%
+        - generic [ref=e114]:
+          - generic [ref=e115]:
+            - img [ref=e117]
+            - heading "Styling & UI" [level=3] [ref=e119]
+          - generic [ref=e120]:
+            - generic [ref=e122]:
+              - generic [ref=e123]: Tailwind CSS
+              - generic [ref=e124]: 92%
+            - generic [ref=e127]:
+              - generic [ref=e128]: Sass / SCSS
+              - generic [ref=e129]: 85%
+            - generic [ref=e132]:
+              - generic [ref=e133]: Styled Components
+              - generic [ref=e134]: 80%
+            - generic [ref=e137]:
+              - generic [ref=e138]: Framer Motion
+              - generic [ref=e139]: 75%
+            - generic [ref=e142]:
+              - generic [ref=e143]: Material UI
+              - generic [ref=e144]: 82%
+            - generic [ref=e147]:
+              - generic [ref=e148]: Figma
+              - generic [ref=e149]: 78%
+        - generic [ref=e151]:
+          - generic [ref=e152]:
+            - img [ref=e154]
+            - heading "Tools & DevOps" [level=3] [ref=e156]
+          - generic [ref=e157]:
+            - generic [ref=e159]:
+              - generic [ref=e160]: Git & GitHub
+              - generic [ref=e161]: 90%
+            - generic [ref=e164]:
+              - generic [ref=e165]: Webpack
+              - generic [ref=e166]: 75%
+            - generic [ref=e169]:
+              - generic [ref=e170]: Vite
+              - generic [ref=e171]: 85%
+            - generic [ref=e174]:
+              - generic [ref=e175]: Docker
+              - generic [ref=e176]: 70%
+            - generic [ref=e179]:
+              - generic [ref=e180]: Jest
+              - generic [ref=e181]: 78%
+            - generic [ref=e184]:
+              - generic [ref=e185]: CI/CD
+              - generic [ref=e186]: 72%
+    - generic [ref=e189]:
+      - generic [ref=e190]:
+        - heading "Featured Projects" [level=2] [ref=e191]
+        - paragraph [ref=e192]: A selection of my recent work and personal projects
+      - generic [ref=e194]:
+        - generic [ref=e195]:
+          - generic [ref=e196]:
+            - generic [ref=e199]:
+              - generic [ref=e200]: E-Commerce
+              - generic [ref=e201]: screenshot
+            - generic [ref=e203]: Featured
+            - generic [ref=e204]:
+              - link "View source code" [ref=e205] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e206]
+              - link "View live demo" [ref=e208] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e209]
+          - generic [ref=e211]:
+            - heading "E-Commerce Platform" [level=3] [ref=e212]
+            - paragraph [ref=e213]: A full-featured e-commerce platform with cart, wishlist, and Stripe payment integration. Built with Next.js and Tailwind CSS.
+            - generic [ref=e214]:
+              - generic [ref=e215]: Next.js
+              - generic [ref=e216]: TypeScript
+              - generic [ref=e217]: Stripe
+              - generic [ref=e218]: Tailwind
+        - generic [ref=e219]:
+          - generic [ref=e220]:
+            - generic [ref=e223]:
+              - generic [ref=e224]: AI
+              - generic [ref=e225]: screenshot
+            - generic [ref=e227]: Featured
+            - generic [ref=e228]:
+              - link "View source code" [ref=e229] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e230]
+              - link "View live demo" [ref=e232] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e233]
+          - generic [ref=e235]:
+            - heading "AI Dashboard" [level=3] [ref=e236]
+            - paragraph [ref=e237]: An analytics dashboard with real-time data visualization, dark mode, and customizable widgets powered by AI insights.
+            - generic [ref=e238]:
+              - generic [ref=e239]: React
+              - generic [ref=e240]: D3.js
+              - generic [ref=e241]: Node.js
+              - generic [ref=e242]: Express
+        - generic [ref=e243]:
+          - generic [ref=e244]:
+            - generic [ref=e247]:
+              - generic [ref=e248]: Task
+              - generic [ref=e249]: screenshot
+            - generic [ref=e251]:
+              - link "View source code" [ref=e252] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e253]
+              - link "View live demo" [ref=e255] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e256]
+          - generic [ref=e258]:
+            - heading "Task Management App" [level=3] [ref=e259]
+            - paragraph [ref=e260]: A Kanban-style task manager with drag-and-drop, team collaboration, and real-time updates using WebSockets.
+            - generic [ref=e261]:
+              - generic [ref=e262]: React
+              - generic [ref=e263]: Socket.io
+              - generic [ref=e264]: MongoDB
+              - generic [ref=e265]: Express
+        - generic [ref=e266]:
+          - generic [ref=e267]:
+            - generic [ref=e270]:
+              - generic [ref=e271]: Weather
+              - generic [ref=e272]: screenshot
+            - generic [ref=e274]:
+              - link "View source code" [ref=e275] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e276]
+              - link "View live demo" [ref=e278] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e279]
+          - generic [ref=e281]:
+            - heading "Weather App" [level=3] [ref=e282]
+            - paragraph [ref=e283]: A beautiful weather app with location-based forecasts, animated weather conditions, and 7-day predictions.
+            - generic [ref=e284]:
+              - generic [ref=e285]: React
+              - generic [ref=e286]: OpenWeather API
+              - generic [ref=e287]: CSS3
+        - generic [ref=e288]:
+          - generic [ref=e289]:
+            - generic [ref=e292]:
+              - generic [ref=e293]: Music
+              - generic [ref=e294]: screenshot
+            - generic [ref=e296]:
+              - link "View source code" [ref=e297] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e298]
+              - link "View live demo" [ref=e300] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e301]
+          - generic [ref=e303]:
+            - heading "Music Player" [level=3] [ref=e304]
+            - paragraph [ref=e305]: A sleek music player with playlists, audio visualizer, and smooth animations. Streams from a custom backend.
+            - generic [ref=e306]:
+              - generic [ref=e307]: Vue.js
+              - generic [ref=e308]: Howler.js
+              - generic [ref=e309]: SCSS
+        - generic [ref=e310]:
+          - generic [ref=e311]:
+            - generic [ref=e314]:
+              - generic [ref=e315]: Portfolio
+              - generic [ref=e316]: screenshot
+            - generic [ref=e318]:
+              - link "View source code" [ref=e319] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e320]
+              - link "View live demo" [ref=e322] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e323]
+          - generic [ref=e325]:
+            - heading "Portfolio Template" [level=3] [ref=e326]
+            - paragraph [ref=e327]: An open-source portfolio website template with dark mode, blog support, and CMS integration. 500+ GitHub stars.
+            - generic [ref=e328]:
+              - generic [ref=e329]: Next.js
+              - generic [ref=e330]: Tailwind
+              - generic [ref=e331]: Sanity CMS
+    - generic [ref=e333]:
+      - generic [ref=e334]:
+        - heading "Work Experience" [level=2] [ref=e335]
+        - paragraph [ref=e336]: My professional journey so far
+      - generic [ref=e338]:
+        - generic [ref=e344]:
+          - generic [ref=e345]: 2023 — Present
+          - heading "Senior Frontend Developer" [level=3] [ref=e346]
+          - paragraph [ref=e347]: Tech Innovations Inc.
+          - paragraph [ref=e348]: Leading the frontend team in building scalable web applications. Improved performance by 40% and established the component library used across all products.
+          - list [ref=e349]:
+            - listitem [ref=e350]:
+              - generic [ref=e351]: ▸
+              - generic [ref=e352]: Led migration from CRA to Next.js, improving load times by 50%
+            - listitem [ref=e353]:
+              - generic [ref=e354]: ▸
+              - generic [ref=e355]: Built and maintained a reusable component library (50+ components)
+            - listitem [ref=e356]:
+              - generic [ref=e357]: ▸
+              - generic [ref=e358]: Mentored 3 junior developers
+        - generic [ref=e363]:
+          - generic [ref=e364]: 2021 — 2023
+          - heading "Frontend Developer" [level=3] [ref=e365]
+          - paragraph [ref=e366]: Digital Solutions Co.
+          - paragraph [ref=e367]: Developed and maintained client web applications using React and TypeScript. Collaborated closely with designers to implement pixel-perfect UIs.
+          - list [ref=e368]:
+            - listitem [ref=e369]:
+              - generic [ref=e370]: ▸
+              - generic [ref=e371]: Delivered 20+ client projects on time
+            - listitem [ref=e372]:
+              - generic [ref=e373]: ▸
+              - generic [ref=e374]: Introduced TypeScript across the codebase, reducing bugs by 30%
+            - listitem [ref=e375]:
+              - generic [ref=e376]: ▸
+              - generic [ref=e377]: Created automated testing pipeline with Jest and Cypress
+        - generic [ref=e382]:
+          - generic [ref=e383]: 2019 — 2021
+          - heading "Junior Web Developer" [level=3] [ref=e384]
+          - paragraph [ref=e385]: StartUp Studio
+          - paragraph [ref=e386]: Started my career building responsive websites and landing pages. Gained experience in HTML, CSS, JavaScript, and various frontend frameworks.
+          - list [ref=e387]:
+            - listitem [ref=e388]:
+              - generic [ref=e389]: ▸
+              - generic [ref=e390]: Built 30+ responsive landing pages
+            - listitem [ref=e391]:
+              - generic [ref=e392]: ▸
+              - generic [ref=e393]: Learned React and built first SPA application
+            - listitem [ref=e394]:
+              - generic [ref=e395]: ▸
+              - generic [ref=e396]: Collaborated with marketing team on A/B testing
+    - generic [ref=e398]:
+      - generic [ref=e399]:
+        - heading "Get In Touch" [level=2] [ref=e400]
+        - paragraph [ref=e401]: Have a project in mind or just want to say hi? My inbox is always open.
+      - generic [ref=e403]:
+        - generic [ref=e404]:
+          - generic [ref=e405]:
+            - heading "Let's build something together" [level=3] [ref=e406]
+            - paragraph [ref=e407]: I'm currently available for freelance work and open to new opportunities. Feel free to reach out through the form or any of my social channels.
+          - generic [ref=e408]:
+            - link "your.email@example.com" [ref=e409] [cursor=pointer]:
+              - /url: mailto:your.email@example.com
+              - img [ref=e411]
+              - generic [ref=e413]: your.email@example.com
+            - generic [ref=e414]:
+              - img [ref=e416]
+              - generic [ref=e418]: +1 (555) 123-4567
+            - generic [ref=e419]:
+              - img [ref=e421]
+              - generic [ref=e423]: San Francisco, CA
+          - generic [ref=e424]:
+            - link "GitHub" [ref=e425] [cursor=pointer]:
+              - /url: https://github.com/yourusername
+              - img [ref=e426]
+            - link "LinkedIn" [ref=e428] [cursor=pointer]:
+              - /url: https://linkedin.com/in/yourusername
+              - img [ref=e429]
+            - link "Twitter" [ref=e431] [cursor=pointer]:
+              - /url: https://twitter.com/yourusername
+              - img [ref=e432]
+            - link "Instagram" [ref=e434] [cursor=pointer]:
+              - /url: https://instagram.com/yourusername
+              - img [ref=e435]
+        - generic [ref=e438]:
+          - generic [ref=e439]:
+            - generic [ref=e440]: Name
+            - textbox "John Doe" [ref=e441]
+          - generic [ref=e442]:
+            - generic [ref=e443]: Email
+            - textbox "john@example.com" [ref=e444]
+          - generic [ref=e445]:
+            - generic [ref=e446]: Message
+            - textbox "Your message..." [ref=e447]
+          - button "Send Message" [ref=e448] [cursor=pointer]
+  - contentinfo [ref=e449]:
+    - generic [ref=e451]:
+      - generic [ref=e452]:
+        - generic [ref=e453]: <Your />
+        - paragraph [ref=e454]: © 2026 Your Name. All rights reserved.
+        - paragraph [ref=e455]: Built with Next.js & Tailwind CSS
+      - generic [ref=e456]:
+        - link "Home" [ref=e457] [cursor=pointer]:
+          - /url: "#home"
+        - link "About" [ref=e458] [cursor=pointer]:
+          - /url: "#about"
+        - link "Skills" [ref=e459] [cursor=pointer]:
+          - /url: "#skills"
+        - link "Projects" [ref=e460] [cursor=pointer]:
+          - /url: "#projects"
+        - link "Experience" [ref=e461] [cursor=pointer]:
+          - /url: "#experience"
+        - link "Contact" [ref=e462] [cursor=pointer]:
+          - /url: "#contact"
+      - generic [ref=e463]:
+        - link "GitHub" [ref=e464] [cursor=pointer]:
+          - /url: https://github.com/yourusername
+          - img [ref=e465]
+        - link "LinkedIn" [ref=e467] [cursor=pointer]:
+          - /url: https://linkedin.com/in/yourusername
+          - img [ref=e468]
+        - link "Twitter" [ref=e470] [cursor=pointer]:
+          - /url: https://twitter.com/yourusername
+          - img [ref=e471]
+        - link "Instagram" [ref=e473] [cursor=pointer]:
+          - /url: https://instagram.com/yourusername
+          - img [ref=e474]
+  - alert [ref=e476]
