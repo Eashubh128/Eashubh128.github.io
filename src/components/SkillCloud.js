@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState, useLayoutEffect } from 'react';
+import { useEffect, useMemo, useRef, useLayoutEffect } from 'react';
 import { skillsData } from '@/lib/data';
 import {
   SiFlutter, SiKotlin, SiDart, SiFirebase, SiSocketdotio, SiGitlab,
