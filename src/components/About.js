@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { FaMapMarkerAlt, FaEnvelope } from 'react-icons/fa';
 import { aboutData, personalInfo } from '@/lib/data';
 import ParallaxLayer from '@/components/ParallaxLayer';
+import gsap from 'gsap';
 
 function AnimatedStat({ stat }) {
   const [count, setCount] = useState(0);
@@ -48,6 +49,46 @@ function AnimatedStat({ stat }) {
 }
 
 export default function About() {
+  const cardRef = useRef(null);
+
+  const handleMouseMove = (e) => {
+    const card = cardRef.current;
+    if (!card) return;
+
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    // Calculate rotation angles (max 15 degrees)
+    const rotateX = ((centerY - y) / centerY) * 15;
+    const rotateY = ((x - centerX) / centerX) * 15;
+
+    gsap.to(card, {
+      rotateX: rotateX,
+      rotateY: rotateY,
+      transformPerspective: 1000,
+      ease: 'power2.out',
+      duration: 0.3,
+      overwrite: 'auto',
+    });
+  };
+
+  const handleMouseLeave = () => {
+    const card = cardRef.current;
+    if (!card) return;
+
+    gsap.to(card, {
+      rotateX: 0,
+      rotateY: 0,
+      ease: 'power3.out',
+      duration: 0.6,
+      overwrite: 'auto',
+    });
+  };
+
   return (
     <section id="about" className="py-20 px-4 sm:px-6 relative">
       <div className="max-w-6xl mx-auto">
@@ -72,11 +113,20 @@ export default function About() {
             viewport={{ once: true }}
             className="md:col-span-2 flex flex-col items-center"
           >
-            <div className="relative w-56 h-56 sm:w-64 sm:h-64">
+            <div
+              ref={cardRef}
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
+              className="relative w-56 h-56 sm:w-64 sm:h-64 cursor-pointer"
+              style={{ transformStyle: 'preserve-3d' }}
+            >
               {/* Gradient ring */}
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-neon-purple via-neon-blue to-neon-cyan p-[2px]">
+              <div
+                className="absolute inset-0 rounded-2xl bg-gradient-to-br from-neon-purple via-neon-blue to-neon-cyan p-[2px]"
+                style={{ transform: 'translateZ(20px)' }}
+              >
                 <div className="w-full h-full rounded-2xl bg-dark-bg flex items-center justify-center">
-                  <div className="text-center">
+                  <div className="text-center" style={{ transform: 'translateZ(10px)' }}>
                     <div className="text-5xl font-bold gradient-text mb-2">
                       {personalInfo.avatarText}
                     </div>

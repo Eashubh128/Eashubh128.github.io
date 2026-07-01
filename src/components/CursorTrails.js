@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef } from 'react';
 import {
   SiFlutter, SiKotlin, SiDart, SiFirebase, SiJavascript, SiTypescript,
   SiNextdotjs, SiTailwindcss, SiGreensock,
@@ -8,150 +8,149 @@ import {
 import {
   FaAndroid, FaAws, FaReact, FaNodeJs,
 } from 'react-icons/fa';
-import { trailIconNames } from '@/lib/data';
 
-// Map icon-name → component.
-const ICONS = {
+const iconList = [
   SiFlutter, SiKotlin, SiDart, SiFirebase, SiJavascript, SiTypescript,
-  SiNextdotjs, SiTailwindcss, SiGreensock,
-  FaAndroid, FaAws, FaReact, FaNodeJs,
-};
+  SiNextdotjs, SiTailwindcss, SiGreensock, FaAndroid, FaAws, FaReact, FaNodeJs
+];
 
-const COLORS = ['#a855f7', '#3b82f6', '#06b6d4', '#ec4899', '#22c55e', '#f59e0b'];
-const MAX_PARTICLES = 32;        // hard cap so the DOM never explodes
-const PARTICLE_LIFE_MS = 1000;   // how long each icon lives
+const colors = ['#38bdf8', '#c084fc', '#4ade80', '#fbbf24', '#f59e0b', '#ec4899', '#06b6d4', '#818cf8'];
 
-// Spawn gating — trails only appear for deliberate, fast cursor sweeps:
-const MIN_DISTANCE = 70;         // px the cursor must travel before next spawn
-const MIN_SPEED = 350;           // px/sec — slow/deliberate moves don't trigger
-const MAX_SPAWN_RATE = 90;       // ms — floor between spawns (caps density)
-
-// Physics thresholds
-const SIZE_MIN = 14;             // px
-const SIZE_MAX = 44;             // px
-const HEAVY_THRESHOLD = 28;      // px — bigger than this → falls, smaller → floats
-
-/**
- * Cursor trail made of tech-stack icons (Flutter, Kotlin, AWS, Firebase, …).
- *
- * Spawns icons on fast mouse sweeps AND on scroll (at the last known cursor
- * position). Each particle is random-sized:
- *   - larger icons are "heavy" → they fall DOWN
- *   - smaller icons are "light" → they float UP
- * Both spin gently during their travel. Disabled on touch devices and
- * when prefers-reduced-motion is set.
- */
 export default function CursorTrails() {
-  const [particles, setParticles] = useState([]);
-  const idRef = useRef(0);
-  const lastPos = useRef(null);       // { x, y, t } of last spawn
-  const mouseRef = useRef(null);      // last known raw cursor { x, y } (any move)
-  const lastScrollSpawn = useRef(0);  // timestamp of last scroll-spawned icon
-  const iconSetRef = useRef([]);
-
-  // Resolve the icon component list once.
-  if (iconSetRef.current.length === 0) {
-    iconSetRef.current = trailIconNames
-      .map((n) => ICONS[n])
-      .filter(Boolean);
-  }
-
-  const spawn = useCallback((x, y) => {
-    const icons = iconSetRef.current;
-    if (icons.length === 0) return;
-
-    const Icon = icons[Math.floor(Math.random() * icons.length)];
-    const color = COLORS[Math.floor(Math.random() * COLORS.length)];
-    const size = SIZE_MIN + Math.random() * (SIZE_MAX - SIZE_MIN); // 14–44 px
-    const heavy = size >= HEAVY_THRESHOLD;
-
-    // Physics: heavy items fall down (+), light items float up (−).
-    const travel = (heavy ? 1 : -1) * (40 + Math.random() * 80);
-    const drift = (Math.random() - 0.5) * 60;        // -30..+30 px sideways
-    const spin = (Math.random() - 0.5) * 140;        // -70..+70 deg
-
-    const id = ++idRef.current;
-    const particle = { id, x, y, Icon, color, size, heavy, travel, drift, spin };
-    setParticles((prev) => {
-      const next = [...prev, particle];
-      return next.length > MAX_PARTICLES ? next.slice(-MAX_PARTICLES) : next;
-    });
-
-    setTimeout(() => {
-      setParticles((prev) => prev.filter((p) => p.id !== id));
-    }, PARTICLE_LIFE_MS);
-  }, []);
+  const containerRef = useRef(null);
 
   useEffect(() => {
-    const isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
-    const prefersReducedMotion = window.matchMedia(
-      '(prefers-reduced-motion: reduce)'
-    ).matches;
-    if (isTouch || prefersReducedMotion) return;
+    const container = containerRef.current;
+    if (!container) return;
 
-    // --- Mouse-move spawning ---
-    function handleMove(e) {
-      // Always track the raw cursor position (for scroll-spawn fallback).
-      mouseRef.current = { x: e.clientX, y: e.clientY };
+    let gsap;
+    let cleanup = () => {};
 
-      const now = performance.now();
-      const prev = lastPos.current;
-      if (!prev) {
-        lastPos.current = { x: e.clientX, y: e.clientY, t: now };
-        return;
-      }
+    (async () => {
+      const gsapModule = await import('gsap');
+      gsap = gsapModule.default;
 
-      const dx = e.clientX - prev.x;
-      const dy = e.clientY - prev.y;
-      const dist = Math.hypot(dx, dy);
-      const dt = now - prev.t;
-      const speed = (dist / dt) * 1000;
+      const flair = gsap.utils.toArray(container.querySelectorAll('.flair'));
+      let index = 0;
+      const wrapper = gsap.utils.wrap(0, flair.length);
+      gsap.defaults({ duration: 1 });
 
-      if (dist < MIN_DISTANCE || speed < MIN_SPEED) return;
-      if (now - prev.t < MAX_SPAWN_RATE) return;
+      let mousePos = { x: 0, y: 0 };
+      let lastMousePos = { x: 0, y: 0 };
+      let cachedMousePos = { x: 0, y: 0 };
+      const gap = 80; // Distance spacing between shape spawns
 
-      lastPos.current = { x: e.clientX, y: e.clientY, t: now };
-      spawn(e.clientX, e.clientY);
-    }
+      const handleMouseMove = (e) => {
+        mousePos = {
+          x: e.clientX,
+          y: e.clientY
+        };
+      };
 
-    // --- Scroll spawning: keep trails alive while scrolling ---
-    // When the user scrolls, pointermove often stops firing (trackpad scroll
-    // or wheel). We spawn icons at the last known cursor position so the
-    // trail doesn't abruptly cut out.
-    function handleScroll() {
-      const m = mouseRef.current;
-      if (!m) return;
-      const now = performance.now();
-      if (now - lastScrollSpawn.current < MAX_SPAWN_RATE * 1.5) return;
-      lastScrollSpawn.current = now;
-      spawn(m.x, m.y);
-    }
+      const playAnimation = (shape) => {
+        const tl = gsap.timeline();
+        tl.fromTo(shape, 
+          { opacity: 0, scale: 0, y: 0, rotation: 0 },
+          {
+            opacity: 1,
+            scale: 1.1,
+            duration: 0.5,
+            ease: "elastic.out(1, 0.3)",
+          }
+        )
+        .to(shape, {
+          rotation: "random([-270, 270])",
+          duration: 1,
+        }, "<")
+        .to(shape, {
+          y: "120vh",
+          ease: "back.in(0.4)",
+          duration: 1.1,
+        }, 0);
+      };
 
-    window.addEventListener('pointermove', handleMove, { passive: true });
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener('pointermove', handleMove);
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [spawn]);
+      const animateImage = () => {
+        const wrappedIndex = wrapper(index);
+        const img = flair[wrappedIndex];
+        const color = img.dataset.color;
+        
+        gsap.killTweensOf(img);
+        
+        gsap.set(img, {
+          clearProps: "all",
+        });
+
+        gsap.set(img, {
+          opacity: 1,
+          left: mousePos.x,
+          top: mousePos.y,
+          xPercent: -50,
+          yPercent: -50,
+          color: color,
+          filter: `drop-shadow(0 0 6px ${color}60)`,
+        });
+
+        playAnimation(img);
+        index++;
+      };
+
+      const ImageTrail = () => {
+        const travelDistance = Math.hypot(
+          lastMousePos.x - mousePos.x,
+          lastMousePos.y - mousePos.y
+        );
+
+        cachedMousePos.x = gsap.utils.interpolate(
+          cachedMousePos.x || mousePos.x,
+          mousePos.x,
+          0.1
+        );
+        cachedMousePos.y = gsap.utils.interpolate(
+          cachedMousePos.y || mousePos.y,
+          mousePos.y,
+          0.1
+        );
+
+        if (travelDistance > gap) {
+          animateImage();
+          lastMousePos = mousePos;
+        }
+      };
+
+      window.addEventListener("mousemove", handleMouseMove, { passive: true });
+      gsap.ticker.add(ImageTrail);
+
+      cleanup = () => {
+        window.removeEventListener("mousemove", handleMouseMove);
+        gsap.ticker.remove(ImageTrail);
+        flair.forEach(img => gsap.killTweensOf(img));
+      };
+    })();
+
+    return () => cleanup();
+  }, []);
+
+  // Generate 24 items in the element pool
+  const pool = Array.from({ length: 24 }).map((_, i) => {
+    const Icon = iconList[i % iconList.length];
+    const color = colors[i % colors.length];
+    return { Icon, color };
+  });
 
   return (
-    <div className="cursor-trail-container" aria-hidden="true">
-      {particles.map((p) => (
+    <div ref={containerRef} className="fixed inset-0 pointer-events-none z-[9999]" aria-hidden="true">
+      {pool.map((item, i) => (
         <span
-          key={p.id}
-          className={`cursor-trail-icon ${p.heavy ? 'is-heavy' : 'is-light'}`}
+          key={i}
+          className="flair fixed opacity-0 select-none pointer-events-none"
+          data-color={item.color}
           style={{
-            left: `${p.x}px`,
-            top: `${p.y}px`,
-            color: p.color,
-            fontSize: `${p.size}px`,
-            '--drift': `${p.drift}px`,
-            '--travel': `${p.travel}px`,
-            '--spin': `${p.spin}deg`,
+            color: item.color,
+            filter: `drop-shadow(0 0 6px ${item.color}60)`,
+            fontSize: '28px',
           }}
         >
-          <p.Icon size={p.size} color={p.color} />
+          <item.Icon size={28} />
         </span>
       ))}
     </div>

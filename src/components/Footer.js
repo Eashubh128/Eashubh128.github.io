@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaArrowUp } from 'react-icons/fa';
 import { personalInfo, navLinks, socialLinks } from '@/lib/data';
 import {
-  FaGithub, FaLinkedin, FaXTwitter, FaInstagram,
+  FaGithub, FaLinkedin, FaXTwitter, FaInstagram, FaEnvelope,
 } from 'react-icons/fa6';
 
 const iconMap = {
@@ -13,6 +13,7 @@ const iconMap = {
   FaLinkedin,
   FaXTwitter,
   FaInstagram,
+  FaEnvelope,
 };
 
 export default function Footer() {

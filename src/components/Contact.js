@@ -14,11 +14,12 @@ const iconMap = {
   FaLinkedin,
   FaXTwitter,
   FaInstagram,
+  FaEnvelope,
 };
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState('idle'); // 'idle' | 'submitting' | 'success' | 'error'
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -26,12 +27,45 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // TODO: Wire up form submission to your backend / email service
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({ name: '', email: '', message: '' });
-    }, 3000);
+    setStatus('submitting');
+
+    window.dispatchEvent(
+      new CustomEvent('trigger-curve-swipe', {
+        detail: {
+          callback: async () => {
+            try {
+              const response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  Accept: 'application/json',
+                },
+                body: JSON.stringify({
+                  access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY || 'bb35ad4a-81a1-4351-a9f8-5a48559196b2', // Fallback key or default
+                  name: formData.name,
+                  email: formData.email,
+                  message: formData.message,
+                  subject: `New Portfolio Message from ${formData.name}`,
+                  from_name: 'Eashubh Portfolio',
+                }),
+              });
+              const result = await response.json();
+              if (result.success) {
+                setStatus('success');
+                setFormData({ name: '', email: '', message: '' });
+                setTimeout(() => setStatus('idle'), 4000);
+              } else {
+                setStatus('error');
+                setTimeout(() => setStatus('idle'), 4000);
+              }
+            } catch {
+              setStatus('error');
+              setTimeout(() => setStatus('idle'), 4000);
+            }
+          },
+        },
+      })
+    );
   };
 
   return (
@@ -162,10 +196,13 @@ export default function Contact() {
               </div>
               <button
                 type="submit"
-                disabled={submitted}
-                className="neon-btn w-full px-6 py-3.5 bg-gradient-to-r from-neon-purple to-neon-blue rounded-xl text-white font-medium text-sm hover:shadow-lg hover:shadow-purple-500/25 transition-all disabled:opacity-50"
+                disabled={status !== 'idle'}
+                className="curve-swipe-btn border border-white/10 bg-white/5 w-full px-6 py-3.5 rounded-xl text-white font-medium text-sm hover:shadow-lg hover:shadow-purple-500/10 transition-all disabled:opacity-50"
               >
-                {submitted ? '✓ Message Sent!' : 'Send Message'}
+                {status === 'idle' && 'Send Message'}
+                {status === 'submitting' && 'Sending...'}
+                {status === 'success' && '✓ Message Sent!'}
+                {status === 'error' && '❌ Sending Failed (Try Again)'}
               </button>
             </form>
           </motion.div>

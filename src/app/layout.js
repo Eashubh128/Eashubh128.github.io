@@ -1,6 +1,7 @@
 import { Space_Grotesk, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import SmoothScrollProvider from '@/components/SmoothScrollProvider';
+import ScrollProgress from '@/components/ScrollProgress';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -15,9 +16,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata = {
-  title: 'Your Name — Frontend Developer Portfolio',
-  description: 'Portfolio of a passionate frontend developer crafting beautiful and performant web experiences.',
-  keywords: ['frontend developer', 'web developer', 'react developer', 'portfolio', 'UI engineer'],
+  title: 'Eashubh Thapliyal — Mobile SDE Portfolio',
+  description: 'Portfolio of Eashubh Thapliyal, a high-performance Software Development Engineer specializing in Android and Cross-Platform (Flutter) applications.',
+  keywords: ['android developer', 'flutter developer', 'mobile engineer', 'SDE', 'portfolio', 'Eashubh Thapliyal'],
 };
 
 export const viewport = {
@@ -31,6 +32,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
       <body className="font-sans bg-dark-bg text-gray-200 antialiased">
         <SmoothScrollProvider>
+          <ScrollProgress />
           {children}
         </SmoothScrollProvider>
       </body>
