@@ -1,6 +1,7 @@
 import { Space_Grotesk, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import SmoothScrollProvider from '@/components/SmoothScrollProvider';
+import { Analytics } from '@vercel/analytics/react';
 import ScrollProgress from '@/components/ScrollProgress';
 
 const spaceGrotesk = Space_Grotesk({
@@ -36,6 +37,7 @@ export default function RootLayout({ children }) {
         <SmoothScrollProvider>
           <ScrollProgress />
           {children}
+          <Analytics />
         </SmoothScrollProvider>
       </body>
     </html>
