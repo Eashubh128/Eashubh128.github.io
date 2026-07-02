@@ -7,6 +7,7 @@ import { personalInfo, navLinks, socialLinks } from '@/lib/data';
 import {
   FaGithub, FaLinkedin, FaXTwitter, FaInstagram, FaEnvelope,
 } from 'react-icons/fa6';
+import VisitorCounter from './VisitorCounter';
 
 const iconMap = {
   FaGithub,
@@ -50,6 +51,7 @@ export default function Footer() {
             <p className="text-xs text-gray-700 font-mono">
               Built with Next.js & Tailwind CSS
             </p>
+            <VisitorCounter />
           </div>
 
           {/* Quick Links */}
