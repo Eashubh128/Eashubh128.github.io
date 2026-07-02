@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { FaMapMarkerAlt, FaEnvelope } from 'react-icons/fa';
 import { aboutData, personalInfo } from '@/lib/data';
@@ -125,12 +126,16 @@ export default function About() {
                 className="absolute inset-0 rounded-2xl bg-gradient-to-br from-neon-purple via-neon-blue to-neon-cyan p-[2px]"
                 style={{ transform: 'translateZ(20px)' }}
               >
-                <div className="w-full h-full rounded-2xl bg-dark-bg flex items-center justify-center">
-                  <div className="text-center" style={{ transform: 'translateZ(10px)' }}>
-                    <div className="text-5xl font-bold gradient-text mb-2">
-                      {personalInfo.avatarText}
-                    </div>
-                    <div className="text-xs text-gray-500 font-mono">your photo here</div>
+                <div className="w-full h-full rounded-2xl bg-dark-bg overflow-hidden relative">
+                  <div className="w-full h-full relative" style={{ transform: 'translateZ(10px)' }}>
+                    <Image
+                      src="/profile.jpeg"
+                      alt={personalInfo.name}
+                      fill
+                      sizes="(max-width: 768px) 256px, 256px"
+                      className="object-cover"
+                      priority
+                    />
                   </div>
                 </div>
               </div>

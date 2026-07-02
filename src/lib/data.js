@@ -31,14 +31,16 @@ export const navLinks = [
 export const aboutData = {
   heading: 'About Me',
   paragraphs: [
-    "I am a high-performance Software Development Engineer specializing in Android and Cross-Platform (Flutter) applications. Currently working at Sunfox Technologies, I lead the core Android development for the Spandan-One medical ecosystem, focusing on real-time hardware communications, high-frequency BLE telemetry (500Hz), and local data encryption.",
-    "With a Bachelor of Technology in Information Technology and experience building modular SDKs for biometric, CRM, and document systems, I bridge the gap between low-level native Android kernels and smooth cross-platform user interfaces. I specialize in designing offline-first architectures, automated CI/CD deployment pipelines, and bulletproof security protocols.",
-    "I have a proven record of driving app stability to a 99.9% crash-free rate and building highly optimized, interactive experiences. Beyond core app development, I hold a Blockchain patent and have won multiple medals in national technology competitions.",
+    "Hey! I'm Eashubh, a mobile engineer who loves turning ideas into products people enjoy using.",
+    "I spend most of my time building Android and Flutter applications, especially products that involve hardware, Bluetooth communication, and real-time data. I enjoy solving challenging engineering problems, but I'm just as passionate about the little details—clean architecture, smooth animations, intuitive user experiences, and writing code that's easy to maintain.",
+    "I'm naturally curious, so I'm always learning something new, experimenting with different technologies, or working on side projects that push me outside my comfort zone. I believe the best software comes from understanding both the technology and the people using it.",
+    "Outside of engineering, I love travelling, photography, good coffee, and exploring new places. I'm always up for a conversation about technology, startups, design, or the next place worth visiting.",
+    "At the end of the day, I simply enjoy building things that make life a little easier—and having fun while doing it.",
   ],
   stats: [
     { label: 'Years of Experience', value: 3, suffix: '+' },
-    { label: 'Crash-Free Rate', value: 99, suffix: '.9%' },
-    { label: 'Target Coverage', value: 85, suffix: '%' },
+    { label: 'Crash-Free Rate', value: 99, suffix: '.2%' },
+    { label: 'Apps Built', value: 20, suffix: '+' },
     { label: 'National Medals', value: 3, suffix: '' },
   ],
 };
