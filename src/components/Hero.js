@@ -111,18 +111,20 @@ export default function Hero() {
 
   const handleDownload = (e) => {
     e.preventDefault();
+    
+    // Trigger actual download instantly
+    const link = document.createElement('a');
+    link.href = personalInfo.resumeUrl;
+    link.download = 'Eashubh_Thapliyal_Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    // Trigger curve swipe as a success transition
     window.dispatchEvent(
       new CustomEvent('trigger-curve-swipe', {
         detail: {
-          callback: () => {
-            // Trigger actual download
-            const link = document.createElement('a');
-            link.href = personalInfo.resumeUrl;
-            link.download = 'Eashubh_Thapliyal_Resume.pdf';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-          },
+          callback: () => {}
         },
       })
     );

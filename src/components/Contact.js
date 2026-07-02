@@ -20,52 +20,77 @@ const iconMap = {
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [status, setStatus] = useState('idle'); // 'idle' | 'submitting' | 'success' | 'error'
+  const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (errors[e.target.name]) {
+      setErrors({ ...errors, [e.target.name]: '' });
+    }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Custom Validation
+    const newErrors = {};
+    if (!formData.name.trim()) {
+      newErrors.name = 'Please tell me your name.';
+    }
+    if (!formData.email.trim()) {
+      newErrors.email = 'Please provide an email address.';
+    } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
+      newErrors.email = 'Hmm, that email doesn\'t look quite right.';
+    }
+    if (!formData.message.trim()) {
+      newErrors.message = 'Please include a message.';
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    setErrors({});
     setStatus('submitting');
 
-    window.dispatchEvent(
-      new CustomEvent('trigger-curve-swipe', {
-        detail: {
-          callback: async () => {
-            try {
-              const response = await fetch('https://api.web3forms.com/submit', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                  Accept: 'application/json',
-                },
-                body: JSON.stringify({
-                  access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY || 'bb35ad4a-81a1-4351-a9f8-5a48559196b2', // Fallback key or default
-                  name: formData.name,
-                  email: formData.email,
-                  message: formData.message,
-                  subject: `New Portfolio Message from ${formData.name}`,
-                  from_name: 'Eashubh Portfolio',
-                }),
-              });
-              const result = await response.json();
-              if (result.success) {
-                setStatus('success');
-                setFormData({ name: '', email: '', message: '' });
-                setTimeout(() => setStatus('idle'), 4000);
-              } else {
-                setStatus('error');
-                setTimeout(() => setStatus('idle'), 4000);
-              }
-            } catch {
-              setStatus('error');
-              setTimeout(() => setStatus('idle'), 4000);
-            }
-          },
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
         },
-      })
-    );
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY || 'efbbba57-d18f-424b-9d2f-a66aa61808db',
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          subject: `New Portfolio Message from ${formData.name}`,
+          from_name: 'Eashubh Portfolio',
+        }),
+      });
+      
+      const result = await response.json();
+      if (result.success) {
+        setStatus('success');
+        setFormData({ name: '', email: '', message: '' });
+        setTimeout(() => setStatus('idle'), 4000);
+        
+        // Trigger the success curve swipe
+        window.dispatchEvent(
+          new CustomEvent('trigger-curve-swipe', {
+            detail: { callback: () => {} }
+          })
+        );
+      } else {
+        setStatus('error');
+        setTimeout(() => setStatus('idle'), 4000);
+      }
+    } catch {
+      setStatus('error');
+      setTimeout(() => setStatus('idle'), 4000);
+    }
   };
 
   return (
@@ -153,46 +178,58 @@ export default function Contact() {
           {/* Right — Form */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <form onSubmit={handleSubmit} className="glass-card rounded-2xl p-6 space-y-4">
+            <form onSubmit={handleSubmit} noValidate className="glass-card rounded-2xl p-6 space-y-4">
               <div>
                 <label className="block text-sm text-gray-400 mb-1.5">Name</label>
                 <input
                   type="text"
                   name="name"
-                  required
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="John Doe"
-                  className="w-full px-4 py-3 bg-dark-bg/50 border border-white/5 rounded-xl text-sm text-white placeholder-gray-600 focus:outline-none focus:border-neon-purple/50 focus:ring-1 focus:ring-neon-purple/30 transition-all"
+                  className={`w-full px-4 py-3 bg-dark-bg/50 border rounded-xl text-sm text-white placeholder-gray-600 focus:outline-none focus:ring-1 transition-all ${
+                    errors.name 
+                      ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/30' 
+                      : 'border-white/5 focus:border-neon-purple/50 focus:ring-neon-purple/30'
+                  }`}
                 />
+                {errors.name && <p className="text-red-400 text-xs mt-1.5 ml-1 animate-pulse">{errors.name}</p>}
               </div>
               <div>
                 <label className="block text-sm text-gray-400 mb-1.5">Email</label>
                 <input
                   type="email"
                   name="email"
-                  required
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="john@example.com"
-                  className="w-full px-4 py-3 bg-dark-bg/50 border border-white/5 rounded-xl text-sm text-white placeholder-gray-600 focus:outline-none focus:border-neon-purple/50 focus:ring-1 focus:ring-neon-purple/30 transition-all"
+                  className={`w-full px-4 py-3 bg-dark-bg/50 border rounded-xl text-sm text-white placeholder-gray-600 focus:outline-none focus:ring-1 transition-all ${
+                    errors.email 
+                      ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/30' 
+                      : 'border-white/5 focus:border-neon-purple/50 focus:ring-neon-purple/30'
+                  }`}
                 />
+                {errors.email && <p className="text-red-400 text-xs mt-1.5 ml-1 animate-pulse">{errors.email}</p>}
               </div>
               <div>
                 <label className="block text-sm text-gray-400 mb-1.5">Message</label>
                 <textarea
                   name="message"
-                  required
                   rows={4}
                   value={formData.message}
                   onChange={handleChange}
                   placeholder="Your message..."
-                  className="w-full px-4 py-3 bg-dark-bg/50 border border-white/5 rounded-xl text-sm text-white placeholder-gray-600 focus:outline-none focus:border-neon-purple/50 focus:ring-1 focus:ring-neon-purple/30 transition-all resize-none"
+                  className={`w-full px-4 py-3 bg-dark-bg/50 border rounded-xl text-sm text-white placeholder-gray-600 focus:outline-none focus:ring-1 transition-all resize-none ${
+                    errors.message 
+                      ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/30' 
+                      : 'border-white/5 focus:border-neon-purple/50 focus:ring-neon-purple/30'
+                  }`}
                 />
+                {errors.message && <p className="text-red-400 text-xs mt-1.5 ml-1 animate-pulse">{errors.message}</p>}
               </div>
               <button
                 type="submit"
@@ -202,7 +239,7 @@ export default function Contact() {
                 {status === 'idle' && 'Send Message'}
                 {status === 'submitting' && 'Sending...'}
                 {status === 'success' && '✓ Message Sent!'}
-                {status === 'error' && '❌ Sending Failed (Try Again)'}
+                {status === 'error' && 'Sending Failed (Try Again)'}
               </button>
             </form>
           </motion.div>

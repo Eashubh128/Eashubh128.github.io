@@ -47,11 +47,10 @@ export default function Navbar() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-dark-bg/80 backdrop-blur-lg border-b border-white/5 shadow-lg shadow-purple-500/5'
-          : 'bg-transparent'
-      }`}
+      className={`fixed top-0 left-0 right-0 z-[999] transition-all duration-300 ${scrolled
+        ? 'bg-dark-bg/80 backdrop-blur-lg shadow-lg shadow-purple-500/10'
+        : 'bg-transparent'
+        }`}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16">
@@ -71,11 +70,10 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={(e) => handleClick(e, link.href)}
-                className={`px-4 py-2 text-sm rounded-lg transition-all duration-200 ${
-                  activeSection === link.href.replace('#', '')
-                    ? 'text-white bg-white/5'
-                    : 'text-gray-400 hover:text-white hover:bg-white/5'
-                }`}
+                className={`px-4 py-2 text-sm rounded-lg transition-all duration-200 ${activeSection === link.href.replace('#', '')
+                  ? 'text-white bg-white/5'
+                  : 'text-gray-400 hover:text-white hover:bg-white/5'
+                  }`}
               >
                 {link.label}
               </a>
@@ -112,11 +110,10 @@ export default function Navbar() {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.05 }}
-                  className={`block px-4 py-3 text-sm rounded-lg transition-all ${
-                    activeSection === link.href.replace('#', '')
-                      ? 'text-white bg-white/5'
-                      : 'text-gray-400 hover:text-white hover:bg-white/5'
-                  }`}
+                  className={`block px-4 py-3 text-sm rounded-lg transition-all ${activeSection === link.href.replace('#', '')
+                    ? 'text-white bg-white/5'
+                    : 'text-gray-400 hover:text-white hover:bg-white/5'
+                    }`}
                 >
                   {link.label}
                 </motion.a>
