@@ -82,8 +82,8 @@ export default function CursorTrails() {
 
         gsap.set(img, {
           opacity: 1,
-          left: mousePos.x,
-          top: mousePos.y,
+          x: mousePos.x,
+          y: mousePos.y,
           xPercent: -50,
           yPercent: -50,
           color: color,
@@ -142,12 +142,13 @@ export default function CursorTrails() {
       {pool.map((item, i) => (
         <span
           key={i}
-          className="flair fixed opacity-0 select-none pointer-events-none"
+          className="flair fixed top-0 left-0 opacity-0 select-none pointer-events-none"
           data-color={item.color}
           style={{
             color: item.color,
             filter: `drop-shadow(0 0 6px ${item.color}60)`,
             fontSize: '28px',
+            willChange: 'transform, opacity, filter',
           }}
         >
           <item.Icon size={28} />
