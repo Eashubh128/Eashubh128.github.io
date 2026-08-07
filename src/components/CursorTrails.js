@@ -42,15 +42,15 @@ export default function CursorTrails() {
 
       const handleMouseMove = (e) => {
         mousePos = {
-          x: e.clientX,
-          y: e.clientY
+          x: e.pageX,
+          y: e.pageY
         };
       };
 
       const playAnimation = (shape) => {
         const tl = gsap.timeline();
         tl.fromTo(shape, 
-          { opacity: 0, scale: 0, y: 0, rotation: 0 },
+          { opacity: 0, scale: 0, rotation: 0 },
           {
             opacity: 1,
             scale: 1.1,
@@ -63,10 +63,11 @@ export default function CursorTrails() {
           duration: 1,
         }, "<")
         .to(shape, {
-          y: "120vh",
-          ease: "back.in(0.4)",
-          duration: 1.1,
-        }, 0);
+          opacity: 0,
+          scale: 0.5,
+          duration: 0.5,
+          ease: "power2.out",
+        }, "+=0.2");
       };
 
       const animateImage = () => {
@@ -82,8 +83,8 @@ export default function CursorTrails() {
 
         gsap.set(img, {
           opacity: 1,
-          left: mousePos.x,
-          top: mousePos.y,
+          left: cachedMousePos.x,
+          top: cachedMousePos.y,
           xPercent: -50,
           yPercent: -50,
           color: color,
@@ -138,11 +139,11 @@ export default function CursorTrails() {
   });
 
   return (
-    <div ref={containerRef} className="fixed inset-0 pointer-events-none z-[9999]" aria-hidden="true">
+    <div ref={containerRef} className="absolute inset-0 pointer-events-none z-[9999]" aria-hidden="true">
       {pool.map((item, i) => (
         <span
           key={i}
-          className="flair fixed opacity-0 select-none pointer-events-none"
+          className="flair absolute opacity-0 select-none pointer-events-none"
           data-color={item.color}
           style={{
             color: item.color,
