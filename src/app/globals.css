@@ -35,9 +35,12 @@ body {
   display: none;
 }
 
-html, body {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+html,
+body {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 /* Gradient text utility */
@@ -116,7 +119,7 @@ html, body {
 
 /* Radial glow */
 .radial-glow {
-  background: radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.15), transparent 70%);
+  background: radial-gradient(closest-side at 50% 50%, rgba(168, 85, 247, 0.15), transparent);
 }
 
 /* Typewriter cursor */
