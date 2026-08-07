@@ -11,22 +11,50 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
+    // 1. Optimized scroll listener using requestAnimationFrame for background blur
+    let ticking = false;
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-
-      // Detect active section
-      const sections = navLinks.map((l) => l.href.replace('#', ''));
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sections[i]);
-        if (el && el.getBoundingClientRect().top <= 120) {
-          setActiveSection(sections[i]);
-          break;
-        }
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 20);
+          ticking = false;
+        });
+        ticking = true;
       }
     };
-
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    // 2. IntersectionObserver for active section detection
+    const sections = navLinks.map((l) => l.href.replace('#', ''));
+    
+    const observerOptions = {
+      root: null,
+      rootMargin: '-120px 0px -40% 0px', // Adjust trigger point
+      threshold: 0
+    };
+
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    // We need to wait slightly for DOM elements to mount if this runs early
+    setTimeout(() => {
+      sections.forEach((sectionId) => {
+        const el = document.getElementById(sectionId);
+        if (el) observer.observe(el);
+      });
+    }, 100);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      observer.disconnect();
+    };
   }, []);
 
   const handleClick = (e, href) => {
