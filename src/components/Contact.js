@@ -31,16 +31,16 @@ export default function Contact() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Custom Validation
+
+    // Validation
     const newErrors = {};
     if (!formData.name.trim()) {
-      newErrors.name = 'Please tell me your name.';
+      newErrors.name = 'Please provide your name.';
     }
     if (!formData.email.trim()) {
       newErrors.email = 'Please provide an email address.';
     } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
-      newErrors.email = 'Hmm, that email doesn\'t look quite right.';
+      newErrors.email = 'Please enter a valid email address.';
     }
     if (!formData.message.trim()) {
       newErrors.message = 'Please include a message.';
@@ -70,19 +70,12 @@ export default function Contact() {
           from_name: 'Eashubh Portfolio',
         }),
       });
-      
+
       const result = await response.json();
       if (result.success) {
         setStatus('success');
         setFormData({ name: '', email: '', message: '' });
         setTimeout(() => setStatus('idle'), 4000);
-        
-        // Trigger the success curve swipe
-        window.dispatchEvent(
-          new CustomEvent('trigger-curve-swipe', {
-            detail: { callback: () => {} }
-          })
-        );
       } else {
         setStatus('error');
         setTimeout(() => setStatus('idle'), 4000);
@@ -94,69 +87,64 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-20 px-4 sm:px-6 relative">
-      {/* Background glow */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] radial-glow pointer-events-none" />
-
-      <div className="max-w-5xl mx-auto relative">
-        {/* Heading */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-3xl sm:text-4xl font-bold mb-3">{contactData.heading}</h2>
-          <p className="text-gray-500 text-sm sm:text-base">
+    <section id="contact" className="py-24 px-4 sm:px-6 relative border-t border-zinc-900">
+      <div className="max-w-5xl mx-auto">
+        {/* Section Heading */}
+        <div className="max-w-2xl mb-14">
+          <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-zinc-100 mb-3">
+            {contactData.heading}
+          </h2>
+          <p className="text-zinc-400 text-sm sm:text-base leading-relaxed">
             {contactData.subheading}
           </p>
-          <div className="section-divider w-24 mx-auto mt-4" />
-        </motion.div>
+          <div className="section-divider w-20 mt-4" />
+        </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {/* Left — Contact info + socials */}
+        <div className="grid md:grid-cols-2 gap-10 items-start">
+          {/* Left Column — Contact Info */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
             viewport={{ once: true }}
             className="space-y-6"
           >
             <div>
-              <h3 className="text-xl font-semibold text-white mb-2">{contactData.leftHeading}</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">
+              <h3 className="text-lg font-medium text-zinc-100 mb-2">
+                {contactData.leftHeading}
+              </h3>
+              <p className="text-zinc-400 text-sm leading-relaxed">
                 {contactData.leftBody}
               </p>
             </div>
 
-            {/* Contact items */}
+            {/* Contact Items */}
             <div className="space-y-3">
               <a
                 href={`mailto:${personalInfo.email}`}
-                className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors group"
+                className="flex items-center gap-3 text-zinc-400 hover:text-zinc-200 transition-colors group"
               >
-                <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-neon-purple/20 transition-colors">
-                  <FaEnvelope className="text-neon-purple" size={16} />
+                <div className="w-9 h-9 rounded-lg bg-zinc-800/80 border border-zinc-700/60 flex items-center justify-center group-hover:border-zinc-500 transition-colors">
+                  <FaEnvelope className="text-zinc-300" size={14} />
                 </div>
                 <span className="text-sm">{personalInfo.email}</span>
               </a>
-              <div className="flex items-center gap-3 text-gray-400">
-                <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center">
-                  <FaPhone className="text-neon-blue" size={14} />
+              <div className="flex items-center gap-3 text-zinc-400">
+                <div className="w-9 h-9 rounded-lg bg-zinc-800/80 border border-zinc-700/60 flex items-center justify-center">
+                  <FaPhone className="text-zinc-300" size={13} />
                 </div>
                 <span className="text-sm">{personalInfo.phone}</span>
               </div>
-              <div className="flex items-center gap-3 text-gray-400">
-                <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center">
-                  <FaLocationDot className="text-neon-cyan" size={16} />
+              <div className="flex items-center gap-3 text-zinc-400">
+                <div className="w-9 h-9 rounded-lg bg-zinc-800/80 border border-zinc-700/60 flex items-center justify-center">
+                  <FaLocationDot className="text-zinc-300" size={14} />
                 </div>
                 <span className="text-sm">{personalInfo.location}</span>
               </div>
             </div>
 
-            {/* Social links */}
-            <div className="flex gap-3 pt-2">
+            {/* Social Links */}
+            <div className="flex gap-2.5 pt-2">
               {socialLinks.map((social) => {
                 const Icon = iconMap[social.icon] || FaGithub;
                 return (
@@ -166,80 +154,89 @@ export default function Contact() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.name}
-                    className="w-11 h-11 rounded-xl glass-card flex items-center justify-center text-gray-400 hover:text-white hover:scale-110 transition-all"
+                    className="w-10 h-10 rounded-lg surface-card flex items-center justify-center text-zinc-400 hover:text-zinc-100 transition-colors"
                   >
-                    <Icon size={18} />
+                    <Icon size={16} />
                   </a>
                 );
               })}
             </div>
           </motion.div>
 
-          {/* Right — Form */}
+          {/* Right Column — Form */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
             viewport={{ once: true }}
           >
-            <form onSubmit={handleSubmit} noValidate className="glass-card rounded-2xl p-6 space-y-4">
+            <form onSubmit={handleSubmit} noValidate className="surface-card rounded-xl p-6 sm:p-8 space-y-4">
               <div>
-                <label className="block text-sm text-gray-400 mb-1.5">Name</label>
+                <label className="block text-xs font-mono uppercase text-zinc-400 mb-1.5">
+                  Name
+                </label>
                 <input
                   type="text"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  placeholder="John Doe"
-                  className={`w-full px-4 py-3 bg-dark-bg/50 border rounded-xl text-sm text-white placeholder-gray-600 focus:outline-none focus:ring-1 transition-all ${
-                    errors.name 
-                      ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/30' 
-                      : 'border-white/5 focus:border-neon-purple/50 focus:ring-neon-purple/30'
+                  placeholder="Your Name"
+                  className={`w-full px-3.5 py-2.5 bg-zinc-950/60 border rounded-lg text-sm text-zinc-100 placeholder-zinc-600 transition-all ${
+                    errors.name
+                      ? 'border-red-500/60 focus:border-red-500'
+                      : 'border-zinc-800 focus:border-zinc-500'
                   }`}
                 />
-                {errors.name && <p className="text-red-400 text-xs mt-1.5 ml-1 animate-pulse">{errors.name}</p>}
+                {errors.name && <p className="text-red-400 text-xs mt-1.5">{errors.name}</p>}
               </div>
+
               <div>
-                <label className="block text-sm text-gray-400 mb-1.5">Email</label>
+                <label className="block text-xs font-mono uppercase text-zinc-400 mb-1.5">
+                  Email
+                </label>
                 <input
                   type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="john@example.com"
-                  className={`w-full px-4 py-3 bg-dark-bg/50 border rounded-xl text-sm text-white placeholder-gray-600 focus:outline-none focus:ring-1 transition-all ${
-                    errors.email 
-                      ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/30' 
-                      : 'border-white/5 focus:border-neon-purple/50 focus:ring-neon-purple/30'
+                  placeholder="you@example.com"
+                  className={`w-full px-3.5 py-2.5 bg-zinc-950/60 border rounded-lg text-sm text-zinc-100 placeholder-zinc-600 transition-all ${
+                    errors.email
+                      ? 'border-red-500/60 focus:border-red-500'
+                      : 'border-zinc-800 focus:border-zinc-500'
                   }`}
                 />
-                {errors.email && <p className="text-red-400 text-xs mt-1.5 ml-1 animate-pulse">{errors.email}</p>}
+                {errors.email && <p className="text-red-400 text-xs mt-1.5">{errors.email}</p>}
               </div>
+
               <div>
-                <label className="block text-sm text-gray-400 mb-1.5">Message</label>
+                <label className="block text-xs font-mono uppercase text-zinc-400 mb-1.5">
+                  Message
+                </label>
                 <textarea
                   name="message"
                   rows={4}
                   value={formData.message}
                   onChange={handleChange}
-                  placeholder="Your message..."
-                  className={`w-full px-4 py-3 bg-dark-bg/50 border rounded-xl text-sm text-white placeholder-gray-600 focus:outline-none focus:ring-1 transition-all resize-none ${
-                    errors.message 
-                      ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/30' 
-                      : 'border-white/5 focus:border-neon-purple/50 focus:ring-neon-purple/30'
+                  placeholder="Tell me about your project or inquiry..."
+                  className={`w-full px-3.5 py-2.5 bg-zinc-950/60 border rounded-lg text-sm text-zinc-100 placeholder-zinc-600 transition-all resize-none ${
+                    errors.message
+                      ? 'border-red-500/60 focus:border-red-500'
+                      : 'border-zinc-800 focus:border-zinc-500'
                   }`}
                 />
-                {errors.message && <p className="text-red-400 text-xs mt-1.5 ml-1 animate-pulse">{errors.message}</p>}
+                {errors.message && <p className="text-red-400 text-xs mt-1.5">{errors.message}</p>}
               </div>
+
               <button
                 type="submit"
                 disabled={status !== 'idle'}
-                className="curve-swipe-btn border border-white/10 bg-white/5 w-full px-6 py-3.5 rounded-xl text-white font-medium text-sm hover:shadow-lg hover:shadow-purple-500/10 transition-all disabled:opacity-50"
+                className="w-full px-5 py-3 rounded-lg bg-zinc-100 text-zinc-900 hover:bg-white font-medium text-sm transition-all disabled:opacity-50"
               >
                 {status === 'idle' && 'Send Message'}
                 {status === 'submitting' && 'Sending...'}
-                {status === 'success' && '✓ Message Sent!'}
-                {status === 'error' && 'Sending Failed (Try Again)'}
+                {status === 'success' && '✓ Message Sent'}
+                {status === 'error' && 'Failed to Send (Please Try Again)'}
               </button>
             </form>
           </motion.div>

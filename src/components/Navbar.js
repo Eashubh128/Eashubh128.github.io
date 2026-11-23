@@ -11,7 +11,6 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
-    // 1. Optimized scroll listener using requestAnimationFrame for background blur
     let ticking = false;
     const handleScroll = () => {
       if (!ticking) {
@@ -24,13 +23,12 @@ export default function Navbar() {
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
 
-    // 2. IntersectionObserver for active section detection
+    // Section detection
     const sections = navLinks.map((l) => l.href.replace('#', ''));
-    
     const observerOptions = {
       root: null,
-      rootMargin: '-120px 0px -40% 0px', // Adjust trigger point
-      threshold: 0
+      rootMargin: '-100px 0px -40% 0px',
+      threshold: 0,
     };
 
     const observerCallback = (entries) => {
@@ -43,8 +41,7 @@ export default function Navbar() {
 
     const observer = new IntersectionObserver(observerCallback, observerOptions);
 
-    // We need to wait slightly for DOM elements to mount if this runs early
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       sections.forEach((sectionId) => {
         const el = document.getElementById(sectionId);
         if (el) observer.observe(el);
@@ -52,6 +49,7 @@ export default function Navbar() {
     }, 100);
 
     return () => {
+      clearTimeout(timer);
       window.removeEventListener('scroll', handleScroll);
       observer.disconnect();
     };
@@ -61,7 +59,6 @@ export default function Navbar() {
     e.preventDefault();
     setIsOpen(false);
     const target = href.startsWith('#') ? href.slice(1) : href;
-    // Prefer Lenis smooth scroll when available; fall back to native.
     if (window.__lenis) {
       window.__lenis.scrollTo(`#${target}`, { offset: -60 });
     } else {
@@ -71,14 +68,12 @@ export default function Navbar() {
   };
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6 }}
-      className={`fixed top-0 left-0 right-0 z-[999] transition-all duration-300 ${scrolled
-        ? 'bg-dark-bg/80 backdrop-blur-lg shadow-lg shadow-purple-500/10'
-        : 'bg-transparent'
-        }`}
+    <nav
+      className={`fixed top-0 left-0 right-0 z-[999] transition-all duration-200 ${
+        scrolled
+          ? 'bg-[#09090b]/80 backdrop-blur-md border-b border-zinc-900'
+          : 'bg-transparent'
+      }`}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16">
@@ -86,35 +81,39 @@ export default function Navbar() {
           <a
             href="#home"
             onClick={(e) => handleClick(e, '#home')}
-            className="text-xl font-bold gradient-text font-mono"
+            className="text-base font-semibold tracking-tight text-zinc-100 hover:text-white transition-colors font-mono"
           >
             &lt;{personalInfo.firstName} /&gt;
           </a>
 
-          {/* Desktop Links */}
+          {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={(e) => handleClick(e, link.href)}
-                className={`px-4 py-2 text-sm rounded-lg transition-all duration-200 ${activeSection === link.href.replace('#', '')
-                  ? 'text-white bg-white/5'
-                  : 'text-gray-400 hover:text-white hover:bg-white/5'
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.href.replace('#', '');
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => handleClick(e, link.href)}
+                  className={`px-3 py-1.5 text-xs font-medium rounded-md transition-all ${
+                    isActive
+                      ? 'text-zinc-100 bg-zinc-850'
+                      : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60'
                   }`}
-              >
-                {link.label}
-              </a>
-            ))}
+                >
+                  {link.label}
+                </a>
+              );
+            })}
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Toggle */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 text-gray-400 hover:text-white transition-colors"
-            aria-label="Toggle menu"
+            className="md:hidden p-2 text-zinc-400 hover:text-zinc-100 transition-colors"
+            aria-label="Toggle navigation menu"
           >
-            {isOpen ? <HiX size={24} /> : <HiMenuAlt3 size={24} />}
+            {isOpen ? <HiX size={22} /> : <HiMenuAlt3 size={22} />}
           </button>
         </div>
       </div>
@@ -126,30 +125,31 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden bg-dark-bg/95 backdrop-blur-lg border-b border-white/5"
+            transition={{ duration: 0.2 }}
+            className="md:hidden bg-[#09090b]/95 backdrop-blur-md border-b border-zinc-900"
           >
-            <div className="px-4 py-4 space-y-1">
-              {navLinks.map((link, i) => (
-                <motion.a
-                  key={link.href}
-                  href={link.href}
-                  onClick={(e) => handleClick(e, link.href)}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05 }}
-                  className={`block px-4 py-3 text-sm rounded-lg transition-all ${activeSection === link.href.replace('#', '')
-                    ? 'text-white bg-white/5'
-                    : 'text-gray-400 hover:text-white hover:bg-white/5'
+            <div className="px-4 py-3 space-y-1">
+              {navLinks.map((link) => {
+                const isActive = activeSection === link.href.replace('#', '');
+                return (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    onClick={(e) => handleClick(e, link.href)}
+                    className={`block px-3 py-2 text-sm rounded-md transition-all ${
+                      isActive
+                        ? 'text-zinc-100 bg-zinc-800'
+                        : 'text-zinc-400 hover:text-zinc-200'
                     }`}
-                >
-                  {link.label}
-                </motion.a>
-              ))}
+                  >
+                    {link.label}
+                  </a>
+                );
+              })}
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.nav>
+    </nav>
   );
 }

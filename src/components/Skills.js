@@ -1,100 +1,151 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
-import { FaReact, FaLaptopCode, FaCodeBranch } from 'react-icons/fa';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { skillsData } from '@/lib/data';
+import {
+  SiFlutter, SiKotlin, SiDart, SiFirebase, SiSocketdotio, SiGitlab,
+  SiFastlane, SiRive, SiJavascript, SiTypescript, SiNextdotjs,
+  SiTailwindcss, SiGreensock, SiTensorflow, SiPytorch,
+} from 'react-icons/si';
+import {
+  FaAndroid, FaAws, FaReact, FaNodeJs, FaJava, FaBluetooth, FaDatabase,
+  FaCode, FaCogs, FaShieldAlt, FaDocker, FaBrain, FaRobot,
+} from 'react-icons/fa';
 
-const categoryIcons = {
+const iconMap = {
+  SiFlutter,
+  SiKotlin,
+  SiDart,
+  SiFirebase,
+  SiSocketdotio,
+  SiGitlab,
+  SiFastlane,
+  SiSonarqube: FaCogs,
+  SiRive,
+  SiJavascript,
+  SiTypescript,
+  SiNextdotjs,
+  SiTailwindcss,
+  SiGreensock,
+  SiTensorflow,
+  SiPytorch,
+  FaAndroid,
+  FaAws,
   FaReact,
-  SiTailwindcss: FaLaptopCode,
-  SiGit: FaCodeBranch,
+  FaNodeJs,
+  FaJava,
+  FaBluetooth,
+  FaDatabase,
+  FaCode,
+  FaCogs,
+  FaShieldAlt,
+  FaDocker,
+  FaBrain,
+  FaRobot,
 };
 
-function SkillBar({ name, level }) {
-  const ref = useRef(null);
-  const [width, setWidth] = useState(0);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => setWidth(level), 150);
-        }
-      },
-      { threshold: 0.3 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [level]);
-
-  return (
-    <div ref={ref}>
-      <div className="flex justify-between items-center mb-1.5">
-        <span className="text-sm text-gray-300">{name}</span>
-        <span className="text-xs text-gray-500 font-mono">{level}%</span>
-      </div>
-      <div className="h-2 bg-dark-border rounded-full overflow-hidden">
-        <div
-          className="h-full rounded-full bg-gradient-to-r from-neon-purple via-neon-blue to-neon-cyan transition-all duration-1000 ease-out"
-          style={{ width: `${width}%` }}
-        />
-      </div>
-    </div>
-  );
-}
+const categoryLabels = {
+  all: 'All Disciplines',
+  native: 'Native Android & Systems',
+  'ai-ml': 'AI & On-Device ML',
+  'cross-platform': 'Cross-Platform & Languages',
+  'architecture-devops': 'DevOps & Tooling',
+};
 
 export default function Skills() {
+  const [activeCategory, setActiveCategory] = useState('all');
+
+  const categories = ['all', 'native', 'ai-ml', 'cross-platform', 'architecture-devops'];
+
+  const filteredSkills = skillsData.cloud.filter((skill) => {
+    if (activeCategory === 'all') return true;
+    return skill.category === activeCategory;
+  });
+
   return (
-    <section id="skills" className="py-20 px-4 sm:px-6 relative">
-      {/* Background glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] radial-glow pointer-events-none" />
+    <section id="skills" className="py-24 px-4 sm:px-6 relative border-t border-zinc-900">
+      <div className="max-w-6xl mx-auto">
+        {/* Section Header */}
+        <div className="max-w-2xl mb-12">
+          <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-zinc-100 mb-3">
+            {skillsData.heading}
+          </h2>
+          <p className="text-zinc-400 text-sm sm:text-base leading-relaxed">
+            {skillsData.subheading}
+          </p>
+          <div className="section-divider w-20 mt-4" />
+        </div>
 
-      <div className="max-w-6xl mx-auto relative">
-        {/* Heading */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-3xl sm:text-4xl font-bold mb-3">{skillsData.heading}</h2>
-          <p className="text-gray-500 text-sm sm:text-base">{skillsData.subheading}</p>
-          <div className="section-divider w-24 mx-auto mt-4" />
-        </motion.div>
-
-        {/* Skill Categories */}
-        <div className="grid md:grid-cols-3 gap-6">
-          {skillsData.categories.map((category, ci) => {
-            const Icon = categoryIcons[category.icon] || FaReact;
+        {/* Category Filters */}
+        <div className="flex flex-wrap gap-2 mb-10" role="tablist" aria-label="Skill categories">
+          {categories.map((cat) => {
+            const isActive = activeCategory === cat;
             return (
-              <motion.div
-                key={category.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: ci * 0.15 }}
-                viewport={{ once: true }}
-                className="glass-card rounded-2xl p-6"
+              <button
+                key={cat}
+                role="tab"
+                aria-selected={isActive}
+                onClick={() => setActiveCategory(cat)}
+                className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all ${
+                  isActive
+                    ? 'bg-zinc-100 text-zinc-900 shadow-sm'
+                    : 'bg-zinc-900/60 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/80 border border-zinc-800/80'
+                }`}
               >
-                {/* Category header */}
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-neon-purple/20 to-neon-blue/20 flex items-center justify-center">
-                    <Icon className="text-neon-purple" size={20} />
-                  </div>
-                  <h3 className="text-lg font-semibold text-white">{category.title}</h3>
-                </div>
-
-                {/* Skill bars */}
-                <div className="space-y-4">
-                  {category.skills.map((skill, si) => (
-                    <SkillBar key={si} name={skill.name} level={skill.level} delay={si * 0.1} />
-                  ))}
-                </div>
-              </motion.div>
+                {categoryLabels[cat]}
+              </button>
             );
           })}
         </div>
+
+        {/* Skills Grid */}
+        <motion.div
+          layout
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+        >
+          <AnimatePresence>
+            {filteredSkills.map((skill) => {
+              const Icon = iconMap[skill.icon] || FaCode;
+              return (
+                <motion.div
+                  layout
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.25 }}
+                  key={skill.name}
+                  className="surface-card rounded-xl p-5 flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="flex items-center gap-3.5 mb-3.5">
+                      <div className="w-10 h-10 rounded-lg bg-zinc-800/80 border border-zinc-700/60 flex items-center justify-center text-zinc-200 shrink-0">
+                        <Icon size={20} />
+                      </div>
+                      <div className="min-w-0">
+                        <h3 className="text-sm sm:text-base font-medium text-zinc-100 truncate">
+                          {skill.name}
+                        </h3>
+                        <span className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider">
+                          {categoryLabels[skill.category] || skill.category}
+                        </span>
+                      </div>
+                    </div>
+
+                    <ul className="space-y-1.5 pt-3 border-t border-zinc-800/80">
+                      {skill.usages.map((usage, ui) => (
+                        <li key={ui} className="text-xs text-zinc-400 leading-relaxed flex items-start gap-2">
+                          <span className="text-accent-light shrink-0 mt-0.5">•</span>
+                          <span>{usage}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
+        </motion.div>
       </div>
     </section>
   );

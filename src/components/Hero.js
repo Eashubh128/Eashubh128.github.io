@@ -1,179 +1,58 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import gsap from 'gsap';
 import { motion } from 'framer-motion';
-import { FaDownload, FaArrowRight } from 'react-icons/fa';
+import { FaDownload, FaArrowRight, FaShieldAlt, FaWaveSquare, FaAward } from 'react-icons/fa';
 import { personalInfo } from '@/lib/data';
-import ParallaxLayer from '@/components/ParallaxLayer';
-import InteractiveGrid from '@/components/InteractiveGrid';
-
-function Typewriter({ words, typingSpeed = 100, deletingSpeed = 50, pauseTime = 2000 }) {
-  const [text, setText] = useState('');
-  const [wordIndex, setWordIndex] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
-
-  useEffect(() => {
-    const currentWord = words[wordIndex];
-    let timeout;
-
-    if (!isDeleting) {
-      if (text.length < currentWord.length) {
-        timeout = setTimeout(() => {
-          setText(currentWord.slice(0, text.length + 1));
-        }, typingSpeed);
-      } else {
-        timeout = setTimeout(() => setIsDeleting(true), pauseTime);
-      }
-    } else {
-      if (text.length > 0) {
-        timeout = setTimeout(() => {
-          setText(currentWord.slice(0, text.length - 1));
-        }, deletingSpeed);
-      } else {
-        setIsDeleting(false);
-        setWordIndex((prev) => (prev + 1) % words.length);
-      }
-    }
-
-    return () => clearTimeout(timeout);
-  }, [text, isDeleting, wordIndex, words, typingSpeed, deletingSpeed, pauseTime]);
-
-  return (
-    <span>
-      {text}
-      <span className="cursor-blink" />
-    </span>
-  );
-}
-
-function FloatingOrbs() {
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Gradient orbs */}
-      <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl animate-float" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/8 rounded-full blur-3xl animate-float" style={{ animationDelay: '-3s' }} />
-      <div className="absolute top-1/2 right-1/3 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl animate-float" style={{ animationDelay: '-1.5s' }} />
-      {/* Grid overlay (static faint lines) */}
-      <div className="absolute inset-0 grid-bg opacity-20" />
-      {/* Interactive canvas grid (glowing pixels) */}
-      <InteractiveGrid />
-    </div>
-  );
-}
 
 export default function Hero() {
-  const magneticZoneRef = useRef(null);
-  const magneticBtnRef = useRef(null);
-
-  useEffect(() => {
-    const zone = magneticZoneRef.current;
-    const btn = magneticBtnRef.current;
-    if (!zone || !btn) return;
-
-    const handleMouseMove = (e) => {
-      const rect = zone.getBoundingClientRect();
-      const x = gsap.utils.mapRange(rect.left, rect.right, -rect.width / 2, rect.width / 2, e.clientX);
-      const y = gsap.utils.mapRange(rect.top, rect.bottom, -rect.height / 2, rect.height / 2, e.clientY);
-
-      gsap.to(btn, {
-        x: x * 0.4,
-        y: y * 0.4,
-        duration: 0.4,
-        ease: "power2.out",
-        overwrite: "auto"
-      });
-    };
-
-    const handleMouseLeave = () => {
-      gsap.to(btn, { 
-        x: 0, 
-        y: 0,
-        duration: 0.7,
-        ease: "elastic.out(1, 0.4)",
-        overwrite: "auto"
-      });
-    };
-
-    zone.addEventListener("mousemove", handleMouseMove);
-    zone.addEventListener("mouseleave", handleMouseLeave);
-
-    return () => {
-      zone.removeEventListener("mousemove", handleMouseMove);
-      zone.removeEventListener("mouseleave", handleMouseLeave);
-    };
-  }, []);
   const handleScroll = (e, href) => {
     e.preventDefault();
     const el = document.querySelector(href);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handleDownload = (e) => {
-    e.preventDefault();
-    
-    // Trigger actual download instantly
-    const link = document.createElement('a');
-    link.href = personalInfo.resumeUrl;
-    link.download = 'Eashubh_Thapliyal_Resume.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    
-    // Trigger curve swipe as a success transition
-    window.dispatchEvent(
-      new CustomEvent('trigger-curve-swipe', {
-        detail: {
-          callback: () => {}
-        },
-      })
-    );
-  };
-
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <FloatingOrbs />
-      {/* Parallax grid backdrop */}
-      <ParallaxLayer speed={0.12} className="absolute inset-0 grid-bg opacity-20 pointer-events-none" />
-
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 text-center">
-        {/* Greeting */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
+    <section id="home" className="relative min-h-[92vh] flex items-center justify-center pt-24 pb-16 px-4 sm:px-6 overflow-hidden">
+      <div className="relative z-10 max-w-4xl mx-auto text-center">
+        {/* Status Pill */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-gray-400 text-sm sm:text-base font-mono mb-4"
+          transition={{ duration: 0.5 }}
+          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-zinc-800 bg-zinc-900/70 text-zinc-300 text-xs sm:text-sm font-mono mb-8"
         >
-          <span className="text-neon-purple">console</span>.log(&apos;Hello World!&apos;)
-        </motion.p>
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          <span>SDE-1 (Android) at Sunfox Technologies</span>
+          <span className="text-zinc-600">|</span>
+          <span className="text-zinc-400">Dehradun, India</span>
+        </motion.div>
 
         {/* Name */}
         <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4"
-        >
-          Hi, I&apos;m{' '}
-          <span className="gradient-text">{personalInfo.name}</span>
-        </motion.h1>
-
-        {/* Typewriter Role */}
-        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="text-xl sm:text-2xl md:text-3xl text-gray-300 mb-6 h-10"
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-zinc-100 mb-6"
         >
-          <Typewriter words={personalInfo.roles} />
-        </motion.div>
+          {personalInfo.name}
+        </motion.h1>
 
-        {/* Tagline */}
+        {/* Clear Headline / Role */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="text-gray-400 max-w-2xl mx-auto mb-10 text-base sm:text-lg"
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="text-xl sm:text-2xl font-medium text-zinc-300 mb-5"
+        >
+          Mobile Systems Engineer · Android & Cross-Platform
+        </motion.p>
+
+        {/* Value Proposition / Summary */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="text-zinc-400 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed mb-10"
         >
           {personalInfo.tagline}
         </motion.p>
@@ -182,49 +61,55 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.0 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-3.5 mb-14"
         >
-          <div ref={magneticZoneRef} className="relative p-6 -m-6 z-20 cursor-pointer flex items-center justify-center">
-            <div ref={magneticBtnRef}>
-              <a
-                href={personalInfo.resumeUrl}
-                onClick={handleDownload}
-                className="curve-swipe-btn border border-purple-500/40 bg-purple-500/10 inline-flex items-center gap-2 px-8 py-3.5 rounded-xl text-white font-medium text-sm shadow-[0_0_20px_rgba(168,85,247,0.3)] hover:shadow-[0_0_30px_rgba(168,85,247,0.5)] hover:bg-purple-500/20 hover:border-purple-400/60 transition-all duration-300"
-              >
-                <FaDownload size={14} />
-                Download CV
-              </a>
-            </div>
-          </div>
+          <a
+            href={personalInfo.resumeUrl}
+            download="Thapliyal_Eashubh_3yrs_Mobile.pdf"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-zinc-100 text-zinc-900 hover:bg-white font-medium text-sm transition-all shadow-sm"
+          >
+            <FaDownload size={13} />
+            Download Resume (PDF)
+          </a>
           <a
             href="#contact"
             onClick={(e) => handleScroll(e, '#contact')}
-            className="neon-btn inline-flex items-center gap-2 px-8 py-3.5 glass-card rounded-xl text-gray-300 font-medium text-sm hover:text-white group"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg border border-zinc-800 bg-zinc-900/60 text-zinc-200 hover:text-white hover:bg-zinc-800/80 font-medium text-sm transition-all group"
           >
-            Let&apos;s Talk
-            <FaArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
+            Get in Touch
+            <FaArrowRight size={11} className="group-hover:translate-x-0.5 transition-transform" />
           </a>
         </motion.div>
 
-        {/* Scroll indicator */}
+        {/* High-Signal Engineering Proof Points */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-8 border-t border-zinc-900 max-w-3xl mx-auto text-left"
         >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="w-5 h-8 rounded-full border-2 border-gray-500 flex items-start justify-center p-1"
-          >
-            <motion.div
-              animate={{ opacity: [1, 0], y: [0, 12] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="w-1 h-2 bg-neon-purple rounded-full"
-            />
-          </motion.div>
+          <div className="flex items-center gap-3 p-3 rounded-lg bg-zinc-900/40 border border-zinc-800/60">
+            <FaWaveSquare className="text-zinc-400 shrink-0" size={16} />
+            <div className="text-xs">
+              <span className="font-semibold text-zinc-200 block">500Hz Real-Time ECG</span>
+              <span className="text-zinc-500 font-mono">Foreground BLE streaming</span>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 p-3 rounded-lg bg-zinc-900/40 border border-zinc-800/60">
+            <FaShieldAlt className="text-zinc-400 shrink-0" size={16} />
+            <div className="text-xs">
+              <span className="font-semibold text-zinc-200 block">99.9% Crash-Free</span>
+              <span className="text-zinc-500 font-mono">Memory profiling & stability</span>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 p-3 rounded-lg bg-zinc-900/40 border border-zinc-800/60">
+            <FaAward className="text-zinc-400 shrink-0" size={16} />
+            <div className="text-xs">
+              <span className="font-semibold text-zinc-200 block">Patented Architecture</span>
+              <span className="text-zinc-500 font-mono">Blockchain warranty system</span>
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>

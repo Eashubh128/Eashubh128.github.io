@@ -8,15 +8,15 @@ module.exports = {
     extend: {
       colors: {
         dark: {
-          bg: '#0a0a0f',
-          card: '#12121a',
-          border: '#1e1e2e',
+          bg: '#09090b',
+          card: '#121217',
+          border: '#27272a',
         },
-        neon: {
-          purple: '#a855f7',
-          blue: '#3b82f6',
-          cyan: '#06b6d4',
-          pink: '#ec4899',
+        accent: {
+          DEFAULT: '#6366f1',
+          hover: '#4f46e5',
+          light: '#818cf8',
+          subtle: 'rgba(99, 102, 241, 0.1)',
         },
       },
       fontFamily: {
