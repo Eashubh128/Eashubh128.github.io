@@ -2,81 +2,72 @@
 
 import { motion } from 'framer-motion';
 import { experienceData } from '@/lib/data';
-import ParallaxLayer from '@/components/ParallaxLayer';
 
 export default function Experience() {
   const { jobs } = experienceData;
 
   return (
-    <section id="experience" className="py-20 px-4 sm:px-6 relative">
-      <ParallaxLayer speed={0.1} className="absolute bottom-0 left-0 w-[400px] h-[300px] radial-glow pointer-events-none" />
+    <section id="experience" className="py-24 px-4 sm:px-6 relative border-t border-zinc-900">
       <div className="max-w-4xl mx-auto">
-        {/* Heading */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-3xl sm:text-4xl font-bold mb-3">{experienceData.heading}</h2>
-          <p className="text-gray-500 text-sm sm:text-base">{experienceData.subheading}</p>
-          <div className="section-divider w-24 mx-auto mt-4" />
-        </motion.div>
+        {/* Section Heading */}
+        <div className="max-w-2xl mb-14">
+          <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-zinc-100 mb-3">
+            {experienceData.heading}
+          </h2>
+          <p className="text-zinc-400 text-sm sm:text-base leading-relaxed">
+            {experienceData.subheading}
+          </p>
+          <div className="section-divider w-20 mt-4" />
+        </div>
 
         {/* Timeline */}
-        <div className="relative">
-          {/* Vertical line */}
-          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-neon-purple via-neon-blue to-transparent" />
-
+        <div className="relative border-l border-zinc-800 ml-3 sm:ml-4 pl-6 sm:pl-8 space-y-12">
           {jobs.map((job, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
               viewport={{ once: true }}
-              className={`relative flex items-start gap-6 md:gap-0 mb-12 last:mb-0 ${
-                i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-              }`}
+              className="relative"
             >
-              {/* Dot on timeline */}
-              <div className="absolute left-4 md:left-1/2 -translate-x-1/2 z-10 mt-2">
-                <div className="w-4 h-4 rounded-full bg-gradient-to-br from-neon-purple to-neon-blue ring-4 ring-dark-bg" />
-              </div>
+              {/* Timeline marker node */}
+              <div className="absolute -left-[31px] sm:-left-[39px] top-1.5 w-3 h-3 rounded-full bg-zinc-700 ring-4 ring-[#09090b]" />
 
-              {/* Content */}
-              <div className={`pl-12 md:pl-0 md:w-1/2 ${i % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12'}`}>
-                <div className="glass-card rounded-2xl p-5">
-                  {/* Period */}
-                  <span className="inline-block text-xs font-mono text-neon-cyan bg-neon-cyan/10 px-3 py-1 rounded-full mb-3">
+              <div className="surface-card rounded-xl p-6">
+                {/* Header: Period & Role */}
+                <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-2">
+                  <h3 className="text-lg font-semibold text-zinc-100">
+                    {job.role}
+                  </h3>
+                  <span className="text-xs font-mono text-zinc-500">
                     {job.period}
                   </span>
+                </div>
 
-                  {/* Role */}
-                  <h3 className="text-lg font-semibold text-white mb-1">{job.role}</h3>
-                  <p className="text-sm text-neon-purple mb-3">{job.company}</p>
-                  <p className="text-gray-400 text-sm leading-relaxed mb-3">{job.description}</p>
+                <div className="text-sm font-medium text-accent-light mb-3">
+                  {job.company}
+                </div>
 
-                  {/* Achievements */}
-                  <ul className={`space-y-1.5 ${i % 2 === 0 ? 'md:text-right' : ''}`}>
+                <p className="text-zinc-400 text-sm leading-relaxed mb-4">
+                  {job.description}
+                </p>
+
+                {/* Achievements */}
+                <div className="pt-3 border-t border-zinc-800/80">
+                  <h4 className="text-xs font-mono text-zinc-500 uppercase tracking-wider mb-2.5">
+                    Key Engineering Contributions
+                  </h4>
+                  <ul className="space-y-2">
                     {job.achievements.map((ach, ai) => (
-                      <li
-                        key={ai}
-                        className={`text-xs text-gray-500 flex items-start gap-2 ${
-                          i % 2 === 0 ? 'md:flex-row-reverse md:text-right' : ''
-                        }`}
-                      >
-                        <span className="text-neon-blue mt-0.5 shrink-0">▸</span>
+                      <li key={ai} className="text-xs sm:text-sm text-zinc-400 leading-relaxed flex items-start gap-2.5">
+                        <span className="text-accent-light shrink-0 mt-1">•</span>
                         <span>{ach}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
               </div>
-
-              {/* Spacer for the other half on desktop */}
-              <div className="hidden md:block md:w-1/2" />
             </motion.div>
           ))}
         </div>

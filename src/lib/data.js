@@ -1,20 +1,26 @@
 // ============================================================
 //  PORTFOLIO DATA — Eashubh Thapliyal
-//  Contains skills, experience, projects, education, patents,
-//  and achievements extracted from the professional resume.
+//  Updated directly from Thapliyal_Eashubh_3yrs_Mobile.pdf
 // ============================================================
+import projectsJson from './projects.json';
 
 // --- Personal Info ---
 export const personalInfo = {
   name: 'Eashubh Thapliyal',
   firstName: 'Eashubh',
-  roles: ['Android SDE-1', 'Flutter Developer', 'Mobile Systems Engineer', 'Cross-Platform Specialist'],
-  tagline: 'Building high-performance, real-time medical & consumer mobile ecosystems with Kotlin, Flutter, and native Android integrations.',
+  roles: [
+    'Android SDE-1',
+    'Mobile Systems Engineer',
+    'On-Device AI & Mobile Engineer',
+    'Cross-Platform Specialist',
+  ],
+  tagline:
+    'Android Engineer with 3+ years of experience building high-performance mobile applications and connecting hardware devices via Bluetooth with Kotlin, Jetpack Compose, and on-device ML.',
   location: 'Dehradun, India',
   email: 'thapliyaleashubh@gmail.com',
   phone: '+91 7500537051',
-  resumeUrl: '/Eashubh_Thapliyal_Resume.pdf', // Link to your resume/CV file
-  avatarText: 'ET', // Initials shown in placeholder avatar
+  resumeUrl: '/Thapliyal_Eashubh_3yrs_Mobile.pdf',
+  avatarText: 'ET',
 };
 
 // --- Navigation Links ---
@@ -31,164 +37,245 @@ export const navLinks = [
 export const aboutData = {
   heading: 'About Me',
   paragraphs: [
-    "Hey! I'm Eashubh, a mobile engineer who loves turning ideas into products people enjoy using.",
-    "I spend most of my time building Android and Flutter applications, especially products that involve hardware, Bluetooth communication, and real-time data. I enjoy solving challenging engineering problems, but I'm just as passionate about the little details—clean architecture, smooth animations, intuitive user experiences, and writing code that's easy to maintain.",
-    "I'm naturally curious, so I'm always learning something new, experimenting with different technologies, or working on side projects that push me outside my comfort zone. I believe the best software comes from understanding both the technology and the people using it.",
-    "Outside of engineering, I love travelling, photography, good coffee, and exploring new places. I'm always up for a conversation about technology, startups, design, or the next place worth visiting.",
-    "At the end of the day, I simply enjoy building things that make life a little easier—and having fun while doing it.",
+    "I'm Eashubh, an Android & Mobile Systems Engineer with 3+ years of production experience building high-performance mobile applications, low-level SDKs, and real-time hardware integrations via Bluetooth.",
+    "My core work spans health-tech and enterprise mobile ecosystems—from architecting medical device telemetry streaming at 500Hz to building low-battery 30 FPS screen-sharing SDKs and offline-first storage engines. I specialize in Kotlin, Jetpack Compose, Android Foreground Services, and integrating on-device ML models for low-latency edge inference.",
+    "I focus on production-grade engineering: driving crash-free stability to 99.8%, cutting SDK binary sizes under 4MB, securing systems through VAPT audits, and authoring patented cryptographic architectures.",
+    "Outside work, I explore photography, robotics competitions, and travelling. I believe exceptional software lives at the intersection of deep systems understanding and intuitive human interaction.",
   ],
   stats: [
     { label: 'Years of Experience', value: 3, suffix: '+' },
-    { label: 'Crash-Free Rate', value: 99, suffix: '.2%' },
-    { label: 'Apps Built', value: 20, suffix: '+' },
+    { label: 'Crash-Free Rate', value: 99, suffix: '.8%' },
+    { label: 'Apps & SDKs Built', value: 20, suffix: '+' },
     { label: 'National Medals', value: 3, suffix: '' },
   ],
 };
 
 // --- Skills Section ---
 export const skillsData = {
-  heading: 'Tech Stack & Skills',
-  subheading: 'A detailed breakdown of my engineering capabilities and technical stack.',
+  heading: 'Technical Stack & Skills',
+  subheading:
+    'Core competencies in Native Android, Bluetooth & Hardware Telemetry, On-Device ML, and Systems Architecture.',
   cloud: [
-    { name: 'Flutter', level: 95, icon: 'SiFlutter', category: 'cross-platform', usages: ['Core architecture of Spandan-One ecosystem', 'BLoC & Riverpod State Management'] },
-    { name: 'Android SDK', level: 95, icon: 'FaAndroid', category: 'native', usages: ['Android Foreground Services for uninterrupted streaming', 'System-level runtime window overlay controls'] },
-    { name: 'Kotlin', level: 93, icon: 'SiKotlin', category: 'native', usages: ['High-performance native Android kernel modules', 'Low-level hardware telemetry data parsing'] },
-    { name: 'Dart', level: 92, icon: 'SiDart', category: 'cross-platform', usages: ['Bidirectional BLE asynchronous communications', 'Real-time motion sensor feedback parsing'] },
-    { name: 'Clean Architecture', level: 92, icon: 'FaCode', category: 'architecture-devops', usages: ['Decoupled domain-driven mobile architectures', 'Separation of concerns for offline-first syncing'] },
-    { name: 'Offline Caching', level: 90, icon: 'FaDatabase', category: 'cross-platform', usages: ['Floor (SQLite) offline database and schema migrations', 'Hive (NoSQL) local secure transaction caching'] },
-    { name: 'Platform Channels', level: 92, icon: 'FaCode', category: 'native', usages: ['High-frequency medical hardware telemetry routing', 'Flutter-to-Native Android system bridging'] },
-    { name: 'Firebase', level: 85, icon: 'SiFirebase', category: 'cross-platform', usages: ['Firebase SDK real-time database integrations', 'Crashlytics for production memory profiling and logs'] },
-    { name: 'Bluetooth & BLE', level: 92, icon: 'FaBluetooth', category: 'cross-platform', usages: ['Wearable sensor integration for Parkinson\'s walk aid', 'IoT smart hydration bottle tracking and syncing'] },
-    { name: 'WebSockets / Socket.io', level: 88, icon: 'SiSocketdotio', category: 'cross-platform', usages: ['30 FPS real-time screen-sharing Cobrowse Android SDK', 'Collaborative browsing overlay routines'] },
-    { name: 'Scoped Storage', level: 92, icon: 'FaShieldAlt', category: 'cross-platform', usages: ['Encrypted medical PDF report generation under 1.5s', 'Android scoped storage and secure directory restrictions'] },
-    { name: 'System Optimization', level: 90, icon: 'FaCogs', category: 'native', usages: ['Driving crash-free rate from 87.4% to 99.8%', 'Profiling memory leaks and regulating background threads'] },
-    { name: 'Java', level: 85, icon: 'FaJava', category: 'native', usages: ['Low-level CRM and biometric attendance SDKs', 'Biometric scanner hardware integration modules'] },
-    { name: 'Build Flavors', level: 90, icon: 'FaCogs', category: 'native', usages: ['Managing distinct product Gradle configurations', 'Handling environment-specific AndroidManifest variants'] },
-    { name: 'CI/CD Pipelines', level: 88, icon: 'SiGitlab', category: 'architecture-devops', usages: ['Automating test execution pipelines on GitLab CI', 'VAPT security assessment code scanning pipelines'] },
-    { name: 'Fastlane', level: 85, icon: 'SiFastlane', category: 'architecture-devops', usages: ['Automated app release building and Play Store deployment', 'Test artifact deliveries pipeline integration'] },
-    { name: 'Docker', level: 75, icon: 'FaDocker', category: 'architecture-devops', usages: ['Containerized machine learning pipeline environments', 'Reproducible metrics processing runner builds'] },
-    { name: 'AWS Services', level: 78, icon: 'FaAws', category: 'architecture-devops', usages: ['AWS S3 cloud storage for user mobility reports', 'AWS Lambda serverless processing of motion metrics'] },
-    { name: 'SonarQube', level: 84, icon: 'SiSonarqube', category: 'architecture-devops', usages: ['Enforcing code quality gates & static analysis rules', 'Maintaining target threshold of 85% test coverage'] },
-    { name: 'Rive Animations', level: 82, icon: 'SiRive', category: 'architecture-devops', usages: ['Physics-based Football therapy game for Parkinson\'s', 'Interactive cognitive stimulation elements'] }
-  ]
+    {
+      name: 'Android SDK & Frameworks',
+      category: 'native',
+      icon: 'FaAndroid',
+      usages: [
+        'Android Foreground Services for uninterrupted 500Hz ECG streaming',
+        'System-level runtime window overlays & Media Projection APIs',
+      ],
+    },
+    {
+      name: 'Jetpack Compose',
+      category: 'native',
+      icon: 'FaAndroid',
+      usages: [
+        'Modern declarative Android UI development with state hoisting',
+        'Custom animation pipelines and production-grade reactive layouts',
+      ],
+    },
+    {
+      name: 'Kotlin',
+      category: 'native',
+      icon: 'SiKotlin',
+      usages: [
+        'Coroutines & Flow for asynchronous reactive event streaming',
+        'Native telemetry parsing and low-level hardware kernel modules',
+      ],
+    },
+    {
+      name: 'Bluetooth & BLE',
+      category: 'native',
+      icon: 'FaBluetooth',
+      usages: [
+        '500Hz real-time medical hardware telemetry streaming and packet parsing',
+        'Bidirectional asynchronous BLE routines for Parkinson’s walk aid & IoT smart bottles',
+      ],
+    },
+    {
+      name: 'Clean Architecture & MVVM',
+      category: 'native',
+      icon: 'FaCode',
+      usages: [
+        'Decoupled domain-driven multi-module mobile architectures',
+        'Separation of concerns with Hilt/Dagger dependency injection',
+      ],
+    },
+    {
+      name: 'Offline Storage & Room',
+      category: 'native',
+      icon: 'FaDatabase',
+      usages: [
+        'Room, Floor (SQLite) & Hive with strict migration schemas',
+        'Offline-first synchronization buffering to prevent data loss',
+      ],
+    },
+    {
+      name: 'Platform Channels',
+      category: 'native',
+      icon: 'FaCode',
+      usages: [
+        'Routing high-frequency medical hardware telemetry to presentation layers',
+        'Flutter-to-Native Android system bridging for custom hardware SDKs',
+      ],
+    },
+    {
+      name: 'System Optimization & R8',
+      category: 'native',
+      icon: 'FaCogs',
+      usages: [
+        'Drove production crash-free rate from 87.4% to 99.8% via memory profiling',
+        'ProGuard/R8 optimizations keeping modular SDK binary size under 4MB',
+      ],
+    },
+    {
+      name: 'WebSockets & Cobrowse SDK',
+      category: 'native',
+      icon: 'SiSocketdotio',
+      usages: [
+        'Low-level Cobrowse Android SDK delivering 30 FPS screen-sharing',
+        'High-efficiency collaborative browsing with minimal battery overhead',
+      ],
+    },
+    {
+      name: 'Scoped Storage & Security',
+      category: 'native',
+      icon: 'FaShieldAlt',
+      usages: [
+        'Tamper-proof encrypted medical PDF report generation under 1.5s',
+        'VAPT security patches reinforcing database and local storage encryption',
+      ],
+    },
+    {
+      name: 'On-Device ML & Vision',
+      category: 'ai-ml',
+      icon: 'SiTensorflow',
+      usages: [
+        'TensorFlow Lite & Android ML Kit for fast on-device inference',
+        'PyTorch Mobile, OpenCV, MediaPipe & ONNX Runtime integrations',
+      ],
+    },
+    {
+      name: 'Generative AI & LLMs',
+      category: 'ai-ml',
+      icon: 'FaBrain',
+      usages: [
+        'Gemini API & OpenAI API integrations with Function / Tool Calling',
+        'LangChain, Ollama local model execution, and Vector Database search',
+      ],
+    },
+    {
+      name: 'Flutter & Dart',
+      category: 'cross-platform',
+      icon: 'SiFlutter',
+      usages: [
+        'Spandan-One cross-platform medical UI and Sipnudge IoT ecosystem',
+        'BLoC & Riverpod state management with asynchronous streams',
+      ],
+    },
+    {
+      name: 'Java',
+      category: 'native',
+      icon: 'FaJava',
+      usages: [
+        'Modular enterprise SDKs for CRM, biometric Attendance, and Document Scanning',
+        'Media Projection API routines and low-level system services',
+      ],
+    },
+    {
+      name: 'CI/CD & Fastlane',
+      category: 'architecture-devops',
+      icon: 'SiFastlane',
+      usages: [
+        'GitLab CI/CD automated test pipelines and release building',
+        'Fastlane automation for Google Play Store deployments and artifacts',
+      ],
+    },
+    {
+      name: 'Static Analysis & Quality',
+      category: 'architecture-devops',
+      icon: 'SiSonarqube',
+      usages: [
+        'SonarQube & SonarLint static analysis enforcing quality gates',
+        'Maintained sustained code coverage threshold above 85%',
+      ],
+    },
+    {
+      name: 'Docker & AWS Services',
+      category: 'architecture-devops',
+      icon: 'FaDocker',
+      usages: [
+        'AWS S3 cloud storage and AWS Lambda serverless metric processing',
+        'Containerized environments for reproducible ML pipeline runners',
+      ],
+    },
+    {
+      name: 'Rive Animation Engine',
+      category: 'architecture-devops',
+      icon: 'SiRive',
+      usages: [
+        'Interactive, physics-based therapeutic game for Parkinson’s rehabilitation',
+        'High-performance custom animations meeting cognitive stimulation needs',
+      ],
+    },
+  ],
 };
-
-// --- Cursor Trail Icons ---
-// Tech icons that spawn behind the cursor. Driven by the skill list above,
-// but you can override the set here if you want a different mix.
-export const trailIconNames = [
-  'SiFlutter',
-  'SiKotlin',
-  'FaAndroid',
-  'FaAws',
-  'SiFirebase',
-  'SiDart',
-  'FaReact',
-  'SiJavascript',
-  'SiTypescript',
-  'SiNextdotjs',
-  'FaNodeJs',
-  'SiTailwindcss',
-  'SiGreensock',
-];
 
 // --- Projects Section ---
 export const projectsData = {
   heading: 'Featured Projects',
-  subheading: 'A selection of my recent work and engineering projects',
-  projects: [
-    {
-      title: 'Sipnudge (IoT Hydration Tracking)',
-      description: 'Designed and engineered a standalone, Flutter-based IoT hydration tracking application communicating with smart bottles via BLE. Features local alarm schedules synced with Google Calendar and an offline-first synchronization engine.',
-      tags: ['Flutter', 'Kotlin', 'Android SDK', 'BLE', 'Google Calendar API'],
-      github: '#',
-      demo: '#',
-      featured: true,
-    },
-    {
-      title: 'Walk (Parkinson\'s Mobile Aid)',
-      description: 'Led the product development and deployment of "Walk", a mobile health aid for Parkinson\'s patients. Interfaces with wearable hardware via BLE to process real-time sensor feedback. Includes a custom therapeutic game built using Rive.',
-      tags: ['Flutter', 'BLE', 'Rive', 'GitLab CI/CD', 'Fastlane'],
-      github: '#',
-      demo: '#',
-      featured: true,
-    },
-    {
-      title: 'Spandan-One Medical Ecosystem',
-      description: 'Built core components for real-time ECG monitoring. Features Foreground Services with 500Hz sampling telemetry, Platform Channels for hardware-to-UI bridging, Floor (SQLite) schema migration, and encrypted PDF generation.',
-      tags: ['Android SDK', 'Kotlin', 'BLoC', 'Floor (SQLite)', 'Scoped Storage'],
-      github: '#',
-      demo: '#',
-      featured: true,
-    },
-    {
-      title: 'Cobrowse Android SDK',
-      description: 'A low-level collaborative browsing Android SDK (Java) and iOS framework (Swift) utilizing Media Projection APIs, Foreground Services, and WebSockets to achieve 30 FPS screen sharing with minimal battery drain.',
-      tags: ['Java', 'Swift', 'Socket.io', 'MediaProjection', 'WebSockets'],
-      github: '#',
-      demo: '#',
-      featured: false,
-    },
-    {
-      title: 'Configurable Metrics Dashboard',
-      description: 'Developed an efficient Multi-Application Configurable Dashboard for enterprise clients (like Aditya Birla, TVS, Motilal Oswal) to monitor metrics of multiple apps simultaneously with dynamic charts and local encryption.',
-      tags: ['Flutter', 'BLoC', 'Streams', 'Data Encryption', 'Dynamic Charts'],
-      github: '#',
-      demo: '#',
-      featured: false,
-    },
-    {
-      title: 'Warranty System (Patented Blockchain)',
-      description: 'Created a decentralized, secure, and reliable warranty system utilizing Blockchain ledger technology to prevent counterfeit claims and automate product verification.',
-      tags: ['Blockchain', 'Cryptography', 'Smart Contracts', 'Security'],
-      github: '#',
-      demo: '#',
-      featured: false,
-    },
-  ],
+  subheading: 'Production and standalone mobile engineering work',
+  projects: projectsJson,
 };
 
 // --- Experience Section ---
 export const experienceData = {
   heading: 'Work Experience',
-  subheading: 'My professional journey so far',
+  subheading: 'Production engineering journey across health-tech, enterprise SDKs, and IoT rehabilitation.',
   jobs: [
     {
       role: 'SDE-1 (Android)',
       company: 'Sunfox Technologies Private Limited',
       period: 'April 2025 — Present',
-      description: 'Building and scaling the Spandan-One medical ecosystem for real-time ECG monitoring. Focused on low-level telemetry, security, and premium UI stability.',
+      location: 'Dehradun, India',
+      description:
+        'Building core Android components for the Spandan-One medical ecosystem. Responsible for real-time ECG streaming, low-level telemetry, security, and enterprise stability.',
       achievements: [
-        'Optimized Android Foreground Services and BLE parsing to support uninterrupted ECG streaming at 500Hz.',
-        'Designed a high-performance offline data layer using Floor (SQLite) and Hive (NoSQL) with strict migration schemas.',
-        'Integrated Government of India\'s ABHA SDK/APIs, securing centralized health records under national standards.',
-        'Developed a secure medical PDF document generator handling Scoped Storage, runtime permissions, and local encryption under 1.5s.',
-        'Elevated app stability to a 99.9% crash-free rate (up from 87.4%) by profiling memory and regulating background threads.',
+        'Built core Android components for the Spandan-One medical ecosystem, utilizing Android Foreground Services and native optimizations to maintain uninterrupted, real-time ECG streaming and BLE data parsing at 500Hz sampling frequencies.',
+        'Developed a reliable offline data layer using native-bridged SQLite storage, implementing strict schemas and data migration strategies to prevent packet loss across major app upgrades.',
+        'Integrated the Government of India’s ABHA (Ayushman Bharat) Android SDK and APIs, establishing secure workflows for centralized health records under national digital health standards (NDHM).',
+        'Created a native-bridged Android document module handling Scoped Storage, runtime permissions, and encrypted local storage to generate tamper-proof medical PDF reports under 1.5 seconds.',
+        'Designed and maintained specialized Platform Channels to route high-frequency medical hardware telemetry directly from native Android kernels to presentation layers, managing distinct product Gradle Build Flavors and Android Manifest variants.',
+        'Elevated production application stability by driving the crash-free rate from 87.4% to 99.8%; achieved via profiling memory to eliminate leaks, regulating background threads to prevent race conditions, and optimizing assets for reduced runtime overhead.',
       ],
     },
     {
-      role: 'Software Engineer - Android & Flutter',
-      company: 'SmartConnect Technologies Private Limited',
-      period: 'November 2023 — March 2025',
-      description: 'Developed enterprise Android SDKs and modular client applications using Flutter, Kotlin, and Java. Implemented web-sockets collaborative utilities and VAPT security protocols.',
+      role: 'Software Engineer - Android',
+      company: 'Smart Connect Technologies Private Limited',
+      period: 'November 2023 — April 2025',
+      location: 'Mumbai, India',
+      description:
+        'Developed modular enterprise Android Native SDKs and real-time screen sharing collaborative utilities distributed via GitLab Package Registry.',
       achievements: [
-        'Engineered modular SDKs for CRM, biometric Attendance, and Document scanning, optimizing binary size to under 4MB.',
-        'Built a 30 FPS low-battery screen-sharing Cobrowse Android SDK utilizing Media Projection APIs and WebSockets.',
-        'Delivered cross-platform CRM apps and migrated a legacy Xamarin codebase to Flutter, boosting maintenance by 90%.',
-        'Resolved critical VAPT vulnerabilities, reinforcing database and storage encryption.',
-        'Automated deployments using SonarQube & SonarLint, keeping test coverage above a target of 85%.',
+        'Developed modular, lightweight Android Native SDKs for CRM, biometric Attendance, and Document Scanning distributed via the GitLab Package Registry, keeping the binary size overhead under 4MB using ProGuard/R8 optimizations.',
+        'Built a low-level Cobrowse Android SDK in Java utilizing Media Projection APIs, Foreground Services, and WebSockets to achieve stable, real-time screen sharing at a consistent 30 FPS with minimal battery drain.',
+        'Implemented background execution structures, runtime window overlays, and push notification routines via deep links to improve customer engagement workflows.',
+        'Identified and patched high-severity security vulnerabilities during VAPT assessments, reinforcing local data encryption protocols and establishing secure native coding practices.',
+        'Automated deployment pipelines and integrated static analysis tools (SonarQube, SonarLint) across the team, maintaining a target threshold of 85% code coverage.',
       ],
     },
     {
-      role: 'SDE - I (Mobile)',
+      role: 'SDE-I',
       company: 'Lifespark Technologies Private Limited',
-      period: 'July 2023 — October 2023',
-      description: 'Developed Parkinson\'s disease mobile rehabilitation aids communicating with wearable hardware devices via BLE.',
+      period: 'May 2023 — November 2023',
+      location: 'Mumbai, India',
+      description:
+        'Engineered mobile health rehabilitation aids communicating with wearable hardware devices via Bluetooth Low Energy (BLE) for Parkinson’s patients.',
       achievements: [
-        'Owned development and Play/App Store deployment of "Walk" application.',
-        'Implemented bidirectional BLE data parsing routines to transmit configs and capture real-time motion sensor feedback.',
-        'Created an interactive, physics-based Football therapy game using the Rive animation engine.',
-        'Configured CI/CD testing pipelines and Fastlane deployment scripts on GitLab.',
+        'Owned the development and production deployment of the "Walk" application, a mobile health aid for Parkinson’s patients interacting with wearable hardware via Bluetooth Low Energy (BLE).',
+        'Implemented bidirectional asynchronous communication routines over BLE to transmit remote hardware configurations and parse real-time motion sensor feedback arrays.',
+        'Configured CI/CD automation deployment setups using GitLab pipelines and Fastlane tools to streamline testing and artifact deliveries.',
+        'Developed an interactive, performance-optimized therapeutic game integrated into the app using the Rive animation engine to meet unique cognitive and physical stimulation requirements.',
       ],
     },
   ],
@@ -202,7 +289,7 @@ export const credentialsData = {
       institution: 'Graphic Era Deemed To Be University',
       location: 'Dehradun, Uttarakhand, India',
       period: '2019 — 2023',
-      score: '8.85 CGPA',
+      score: '8.85 / 10.0 CGPA',
     },
     {
       degree: 'Senior Secondary (CBSE - XII)',
@@ -213,7 +300,7 @@ export const credentialsData = {
     },
     {
       degree: 'Higher Secondary (ICSE - X)',
-      institution: 'St Theresa\'s Convent Srinagar Garhwal',
+      institution: 'St Theresa’s Convent Srinagar Garhwal',
       location: 'Pauri Garhwal, Uttarakhand, India',
       period: '2017',
       score: '82.66%',
@@ -223,23 +310,27 @@ export const credentialsData = {
     id: '584714',
     title: 'A System and Method of Reliable and Secure Warranty System Using Blockchain',
     issuedDate: '24/03/2026',
-    description: 'A patented decentralized application using Blockchain architecture to ensure secure, cryptographic verification of product warranty claims, eliminating counterfeits and fraud.',
+    description:
+      'A patented decentralized application using Blockchain architecture to ensure secure, cryptographic verification of product warranty claims, eliminating counterfeits and fraud.',
   },
   achievements: [
     {
       title: 'Silver Medallist',
-      organization: 'Department of Information Technology, B.Tech (2019-2023)',
-      description: 'Awarded for finishing as one of the top academic performers in the Information Technology branch.',
+      organization: 'Department of Information Technology, B.Tech (2019–2023)',
+      description:
+        'Awarded for finishing as one of the top academic performers in the Information Technology branch.',
     },
     {
       title: 'Gold Medallist — Robowars',
       organization: 'Kshitij, IIT Kharagpur (January 2023)',
-      description: 'Won 1st place in the flagship robotics combat event at IIT Kharagpur\'s Asia-level tech fest.',
+      description:
+        'Won 1st place in the flagship robotics combat event at IIT Kharagpur’s Asia-level tech fest.',
     },
     {
       title: 'Silver Medallist — Automate',
       organization: 'Cognizance, IIT Roorkee (March 2023)',
-      description: 'Secured 2nd place in the automation engineering event at IIT Roorkee\'s annual tech festival.',
+      description:
+        'Secured 2nd place in the automation engineering event at IIT Roorkee’s annual tech festival.',
     },
   ],
 };
@@ -247,9 +338,11 @@ export const credentialsData = {
 // --- Contact Section ---
 export const contactData = {
   heading: 'Get In Touch',
-  subheading: 'Have an interesting project in mind or want to discuss mobile engineering? Let\'s talk.',
+  subheading:
+    'Have an interesting project in mind or want to discuss mobile engineering? Let’s talk.',
   leftHeading: "Let's build something together",
-  leftBody: "I'm always open to discussing mobile development, SDK design, performance optimizations, or opportunities in SDE roles. Reach out via email, phone, or connect on social media.",
+  leftBody:
+    'I’m always open to discussing Android SDK design, BLE hardware integration, on-device ML, performance optimizations, or opportunities in mobile SDE roles.',
 };
 
 // --- Contact / Social Links ---

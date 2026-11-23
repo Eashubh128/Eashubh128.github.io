@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Sipnudge",
+    "description": "Standalone IoT wellness mobile application communicating with smart bottles via BLE to measure, track, and synchronize liquid intake volumes in real time. Features smart Google Calendar-synced alert schedules and an offline-first transaction reconciliation engine.",
+    "tags": ["Flutter", "Kotlin", "Android SDK", "Bluetooth LE", "Google Calendar API", "Offline Caching"],
+    "github": "https://github.com/Eashubh128",
+    "demo": "https://github.com/Eashubh128",
+    "featured": true
+  },
+  {
+    "title": "KamraKhojo",
+    "description": "Local room finder for Srinagar Garhwal. A modern, fast, and user-friendly mobile application built to connect property owners with potential tenants seamlessly using location-based discovery.",
+    "tags": ["Flutter", "Dart", "Supabase", "Google Maps"],
+    "github": "https://github.com/Eashubh128",
+    "demo": "https://kamrakhojo.vercel.app/",
+    "livePreview": "https://kamrakhojo.vercel.app/",
+    "image": "https://thumbnail.ws/get/thumbnail/?apikey=ab45a17344aa033247137cf2d457fc39abcd7e16a464&url=kamrakhojo.vercel.app%2F%3FdisplayInitialLoader%3Dfalse&width=800&mobile=false&delay=8000",
+    "featured": false
+  }
+]
